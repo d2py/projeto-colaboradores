@@ -4,7 +4,7 @@
 gunicorn-error-log
 __localcode
 /data/
-
+data
 # Django #
 *.log
 *.pot
@@ -142,3 +142,4 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+.vscode
