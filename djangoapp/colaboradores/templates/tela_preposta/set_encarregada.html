@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Colaborador RCS</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="#" class="active"><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
+                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
+                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Lista de Encarregadas</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="collaborators-list">
+                    <!-- Exemplo de item de encarregada -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Nome da Encarregada:</strong> Monica Martins</div>
+                            <div class="setores-list">
+                                <ul>
+                                    <li>DIMEQ</li>
+                                    <li>STI</li>
+                                    <li>Limpeza</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Nome da Encarregada:</strong> Carla Silva</div>
+                            <div class="setores-list">
+                                <ul>
+                                    <li>Almoxarifado</li>
+                                    <li>Recepção</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mais um exemplo -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Nome da Encarregada:</strong> Ana Paula</div>
+                            <div class="setores-list">
+                                <ul>
+                                    <li>Cozinha</li>
+                                    <li>Refeitório</li>
+                                    <li>Lavanderia</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

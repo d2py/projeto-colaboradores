@@ -25,7 +25,7 @@
                     <a href=" {% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
                     
                 </li>
-                <li><a href="#"><i>🏖️</i> FÉRIAS</a></li>
+                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
             </ul>
             
             <div class="sidebar-credits">
@@ -47,7 +47,7 @@
                 <!-- Container para os botões das encarregadas -->
                 <div class="supervisors-container">
                     {% for encarregada in encarregadas %}
-                    <a href="{{ encarregada.link }}" class="supervisor-btn">
+                    <a href="{% url 'cols_encarregada'%}" class="supervisor-btn">
                         <span class="supervisor-icon">👩‍💼</span>
                         <span class="supervisor-name">{{ encarregada.nome }}</span>
                         {% if encarregada.count %}

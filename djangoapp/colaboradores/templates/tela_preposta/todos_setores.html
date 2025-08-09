@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/lista_setores.css'%}">
+    <title>Colaborador RCS</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'colaboradores'%}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="{% url 'setores' %}" class="active"><i>🏢</i> SETORES</a></li>
+                <ul class="submenu">
+                        <li><a href="{% url 'todos_setores'%}" class="todos-setores"><i>🏢</i> TODOS OS SETORES</a></li>
+                    </ul>
+                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
+                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Lista dos Setores</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="collaborators-list">
+                    <!-- Exemplo com muitos setores -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Encarregada :</strong> Monica Martins </div>
+                            <div class="setores-grid">
+                                <!-- Grupo 1 -->
+                                <div class="setores-group">
+                                    <li>DIMEQ</li>
+                                    <li>STI</li>
+                                    <li>Limpeza</li>
+                                    <li>Almoxarifado</li>
+                                </div>
+                                <!-- Grupo 2 -->
+                                <div class="setores-group">
+                                    <li>Recepção</li>
+                                    <li>Cozinha</li>
+                                    <li>Refeitório</li>
+                                    <li>Lavanderia</li>
+                                </div>
+                                <!-- Grupo 3 -->
+                                <div class="setores-group">
+                                    <li>Manutenção</li>
+                                    <li>Segurança</li>
+                                    <li>Transporte</li>
+                                    <li>Jardim</li>
+                                </div>
+                                <!-- Grupo 4 -->
+                                <div class="setores-group">
+                                    <li>Administração</li>
+                                    <li>RH</li>
+                                    <li>Financeiro</li>
+                                    <li>Compras</li>
+                                </div>
+                                <!-- Grupo 5 -->
+                                <div class="setores-group">
+                                    <li>TI</li>
+                                    <li>Marketing</li>
+                                    <li>Vendas</li>
+                                    <li>Atendimento</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exemplo com poucos setores -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Encarregada:</strong> Carla Silva</div>
+                            <div class="setores-grid">
+                                <div class="setores-group">
+                                    <li>Almoxarifado</li>
+                                    <li>Recepção</li>
+                                    <li>Cozinha</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Exemplo com exatos 4 setores -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Encarregada :</strong> Ana Paula</div>
+                            <div class="setores-grid">
+                                <div class="setores-group">
+                                    <li>Cozinha</li>
+                                    <li>Refeitório</li>
+                                    <li>Lavanderia</li>
+                                    <li>Limpeza</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

@@ -14,8 +14,17 @@ def list_colaboradores(request):
 def encarregadas(request):
     return render(request, 'tela_preposta/encarregadas.html')
 
+def col_encarregadas(request):
+    return render(request, 'tela_preposta/colabo_encarregada.html')
+
 def setores(request):
     return render(request, 'tela_preposta/setores.html')
 
+def todos_setores(request):
+    return render(request, 'tela_preposta/todos_setores.html')
+
 def uniformes(request):
     return render(request, 'tela_preposta/uniformes.html')
+
+def ferias(request):
+    return render(request, 'tela_preposta/ferias.html')

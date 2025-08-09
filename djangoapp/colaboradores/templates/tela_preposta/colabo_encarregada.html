@@ -1,3 +1,4 @@
+<!--renderiza colaboradores para cada encarregada-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,8 +20,8 @@
             
             <ul class="sidebar-menu">
                 <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="#" class="active" ><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="#"  ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}" class="active"><i>👩‍💼</i> ENCARREGADAS</a></li>
                 <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
                 <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
                 <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
@@ -37,6 +38,7 @@
             <div class="content-wrapper">
                 <header class="header">
                     <h2>Lista de Colaboradores</h2>
+                    
                     <div class="user-info">
                         <span>Usuário: Admin</span>
                         <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
@@ -47,8 +49,8 @@
                     <input type="text" placeholder="Pesquisar colaborador...">
                     <button>Pesquisar</button>
                 </div>
-                
-                <div class="collaborators-list">
+                 <div class="collaborator-field"><strong>Encarregada:Monica</strong> </div>
+                <div class="collaborators-list">            
                     <!-- Exemplo de item de colaborador -->
                     <div class="collaborator-item">
                         <div class="collaborator-info">
@@ -59,7 +61,7 @@
                             <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
                             <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
                             <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
-                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica</div>
+                            <div class="collaborator-field"><strong>Férias:</strong> Janeiro</div>
                         </div>
                         <div class="collaborator-actions">
                             <button class="btn btn-edit">Editar</button>
@@ -77,7 +79,7 @@
                             <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
                             <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
                             <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica Martis</div>
+                            <div class="collaborator-field"><strong>Férias:</strong> Janeiro</div>
                         </div>
                         <div class="collaborator-actions">
                             <button class="btn btn-edit">Editar</button>
