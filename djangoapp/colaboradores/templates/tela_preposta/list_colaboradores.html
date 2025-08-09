@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COLABORADORES RCS</title>
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Colaborador RCS</title>
+    
 </head>
 <body>
     <div class="container">
@@ -16,12 +18,13 @@
             </div>
             
             <ul class="sidebar-menu">
-                <li><a href="#"><i>🏠</i> HOME</a></li>
-                <li><a href="#" class="active"><i>👥</i> COLABORADORES</a></li>
-                <li><a href="#"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="#" class="active" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
+                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
                 <li><a href="#"><i>🏖️</i> FÉRIAS</a></li>
-                <li><a href="#"><i>🏢</i> SETORES</a></li>
-                <li><a href="#"><i>👕</i> UNIFORMES</a></li>
+                
             </ul>
             
             <div class="sidebar-credits">
@@ -51,12 +54,12 @@
                         <div class="collaborator-info">
                             <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
                             <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
-                            <div class="collaborator-field"><strong>Email:</strong> joao@example.com</div>
-                            <div class="collaborator-field"><strong>Departamento:</strong> Operações</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> Logística</div>
-                            <div class="collaborator-field"><strong>Telefone:</strong> (11) 99999-9999</div>
-                            <div class="collaborator-field"><strong>Status:</strong> Ativo</div>
-                            <div class="collaborator-field"><strong>Admissão:</strong> 01/01/2023</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica</div>
                         </div>
                         <div class="collaborator-actions">
                             <button class="btn btn-edit">Editar</button>
@@ -67,14 +70,14 @@
                     <!-- Outro exemplo de item -->
                     <div class="collaborator-item">
                         <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 67890</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Maria Souza</div>
-                            <div class="collaborator-field"><strong>Email:</strong> maria@example.com</div>
-                            <div class="collaborator-field"><strong>Departamento:</strong> RH</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> Recrutamento</div>
-                            <div class="collaborator-field"><strong>Telefone:</strong> (11) 98888-8888</div>
-                            <div class="collaborator-field"><strong>Status:</strong> Ativo</div>
-                            <div class="collaborator-field"><strong>Admissão:</strong> 15/03/2023</div>
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica Martis</div>
                         </div>
                         <div class="collaborator-actions">
                             <button class="btn btn-edit">Editar</button>

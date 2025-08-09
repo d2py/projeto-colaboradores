@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Portal Colaboradores</title>
+    <style>
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'home' %}" class="active"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'colaboradores' %}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href=" {% url 'setores' %}"><i>🏢</i> SETORES</a></li>
+                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
+                <li><a href="#"><i>🏖️</i> FÉRIAS </a></li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Bem-vindo ao Portal</h2>
+                    <div class="user-info">
+                        <span>Usuário: Diego</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="content">
+                    <h2>Gerenciamento</h2>
+                    
+                    <div class="card-container">
+                        <div class="card">
+                            <h3>Inserir Encarregada</h3>
+                            <p>Adicione uma nova encarregada ao sistema com todas as informações necessárias.</p>
+                            <a href="formulario-encarregada.html" class="card-btn">Acessar Formulário</a>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Inserir Colaborador</h3>
+                            <p>Cadastre um novo colaborador na plataforma.</p>
+                            <a href="formulario-colaborador.html" class="card-btn">Acessar Formulário</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© 2023 INSENA INSPIRA BICAREGADA - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>        

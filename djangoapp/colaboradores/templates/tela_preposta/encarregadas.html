@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>ENCARREGADAS RCS</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
+                <li><a href="#" class="active"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
+                <li class="has-submenu">
+                    <a href=" {% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
+                    
+                </li>
+                <li><a href="#"><i>🏖️</i> FÉRIAS</a></li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Encarregadas</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <!-- Container para os botões das encarregadas -->
+                <div class="supervisors-container">
+                    {% for encarregada in encarregadas %}
+                    <a href="{{ encarregada.link }}" class="supervisor-btn">
+                        <span class="supervisor-icon">👩‍💼</span>
+                        <span class="supervisor-name">{{ encarregada.nome }}</span>
+                        {% if encarregada.count %}
+                        <span class="supervisor-count">{{ encarregada.count }} colaboradores</span>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© {% now "Y" %} COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
