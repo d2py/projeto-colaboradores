@@ -20,14 +20,15 @@
                 <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
                 <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
                 <li><a href="{% url 'encarregadas' %}" ><i>👩‍💼</i> ENCARREGADAS</a></li>
-                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES<span class="submenu-toggle">›</span></a></li>
                 <li class="has-submenu">
-                    <a href="#" class="active"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
+                    <a href="" class="active"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
                     <ul class="submenu">
-                        <li><a href="#" class="todos-setores"><i>👕</i> TODOS OS UNIFORMES</a></li>
+                        <li><a href="{% url 'todos_uniformes' %}" ><i>👕</i> TODOS OS UNIFORMES</a></li>
                     </ul>
                 </li>
-                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
+
+                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
             </ul>
             
             <div class="sidebar-credits">

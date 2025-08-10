@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
     <title>Colaborador RCS</title>
-    
 </head>
 <body>
     <div class="container">
@@ -19,12 +18,15 @@
             
             <ul class="sidebar-menu">
                 <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="#" class="active" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
                 <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
-                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
-                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
-                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
-                
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a></li>
+                <li><a href="{% url 'uniformes' %}" class="active"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a></li>
+                <ul class="submenu">
+                        <li><a href="{% url 'todos_uniformes' %}" class="todos-setores"><i>👕</i> TODOS OS UNIFORMES</a></li>
+                    </ul>
+                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
+
             </ul>
             
             <div class="sidebar-credits">
@@ -36,20 +38,20 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <header class="header">
-                    <h2>Lista de Colaboradores</h2>
+                    <h2>Todos os Uniformes</h2>
                     <div class="user-info">
                         <span>Usuário: Admin</span>
                         <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
                     </div>
                 </header>
-                
-                <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar colaborador...">
-                    <button>Pesquisar</button>
-                </div>
-                
-                <div class="collaborators-list">
-                    <!-- Exemplo de item de colaborador -->
+
+                <div class="collaborator-field"><strong>Encarregada:</strong> Monica Martins</div>
+                <div class="collaborator-actions">
+                            <button class="btn btn-edit">imprimir</button>
+                            
+                        </div>
+
+                <div class="collaborators-list"> 
                     <div class="collaborator-item">
                         <div class="collaborator-info">
                             <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
@@ -58,35 +60,17 @@
                             <div class="collaborator-field"><strong>Blusa:</strong> G</div>
                             <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
                             <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
-                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>    
                         </div>
                         <div class="collaborator-actions">
                             <button class="btn btn-edit">Editar</button>
                             <button class="btn btn-delete">Excluir</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
-                            <div class="collaborator-field"><strong>Encarregada:</strong> Monica Martis</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
-                        </div>
-                    </div>
+                        </div>                  
+                    </div>  
+                      
                 </div>
+                
+                
             </div>
             
             <footer class="footer">

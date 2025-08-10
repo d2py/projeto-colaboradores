@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Férias RCS</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+
+                <li class="has-submenu">
+                    <a href=""><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a>
+                    
+                </li>
+                <li class="has-submenu">
+                    <a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
+                </li>
+                
+                <li><a href="{% url 'ferias' %}" class="active"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
+                <li class="has-submenu">
+                        <a href="" class="todos-setores"><i>🏖️</i> TODAS AS FERIAS</a>
+                    
+                </li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Férias dos Colaboradores</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <!-- Container para os meses de férias -->
+                <div class="ferias-container">
+                    <div class="meses-bloco">
+                        <div class="mes-ferias">
+                            <h3>Janeiro</h3>
+                            {% for ferias in ferias_janeiro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Fevereiro</h3>
+                            {% for ferias in ferias_fevereiro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Março</h3>
+                            {% for ferias in ferias_marco %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="meses-bloco">
+                        <div class="mes-ferias">
+                            <h3>Abril</h3>
+                            {% for ferias in ferias_abril %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Maio</h3>
+                            {% for ferias in ferias_maio %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Junho</h3>
+                            {% for ferias in ferias_junho %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="meses-bloco">
+                        <div class="mes-ferias">
+                            <h3>Julho</h3>
+                            {% for ferias in ferias_julho %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Agosto</h3>
+                            {% for ferias in ferias_agosto %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Setembro</h3>
+                            {% for ferias in ferias_setembro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="meses-bloco">
+                        <div class="mes-ferias">
+                            <h3>Outubro</h3>
+                            {% for ferias in ferias_outubro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Novembro</h3>
+                            {% for ferias in ferias_novembro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mes-ferias">
+                            <h3>Dezembro</h3>
+                            {% for ferias in ferias_dezembro %}
+                            <div class="colaborador-ferias">
+                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
+                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
+                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© {% now "Y" %} COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

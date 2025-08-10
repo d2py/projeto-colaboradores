@@ -26,5 +26,11 @@ def todos_setores(request):
 def uniformes(request):
     return render(request, 'tela_preposta/uniformes.html')
 
+def todos_uniformes(request):
+    return render(request, 'tela_preposta/todos_uniformes.html')
+
 def ferias(request):
     return render(request, 'tela_preposta/ferias.html')
+
+def todas_ferias(request):
+    return render(request, 'tela_preposta/todas_ferias.html')
