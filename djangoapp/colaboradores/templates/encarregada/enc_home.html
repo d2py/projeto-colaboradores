@@ -1,0 +1,20 @@
+{% extends "base.html"%}
+
+
+{% block title%} co {% endblock title%}
+
+{% block menu_usuario %}
+Bem-vindo ao Portal
+{% endblock menu_usuario %}
+
+{% block menu %} 
+    <li><a href="" class="active"><i>🏠</i> HOME</a></li>
+    <li><a href="{% url 'enc_colaboradores'%}" ><i>👥</i> COLABORADORES</a></li>
+    <li><a href=" "><i>🏢</i> SETORES</a></li>
+    <li><a href=""><i>👕</i> UNIFORMES</a></li>
+    <li><a href=""><i>🏖️</i> FÉRIAS </a></li>  
+{% endblock menu %}
+
+{% block inserir_encarregada %}
+
+{% endblock inserir_encarregada %}

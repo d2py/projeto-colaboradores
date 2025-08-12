@@ -4,33 +4,42 @@ from django.shortcuts import render
 def base(request):
     return render(request, 'base.html')
 
-# Telas da Preposta
+# Tela da Preposta
 def home(request):
-    return render(request, 'tela_preposta/home.html')
+    return render(request, 'preposta/home.html')
 
 def list_colaboradores(request):
-    return render(request, 'tela_preposta/list_colaboradores.html')
+    return render(request, 'preposta/list_colaboradores.html')
 
 def encarregadas(request):
-    return render(request, 'tela_preposta/encarregadas.html')
+    return render(request, 'preposta/encarregadas.html')
 
-def col_encarregadas(request):
-    return render(request, 'tela_preposta/colabo_encarregada.html')
+def colabo_encarregadas(request):
+    return render(request, 'preposta/colabo_encarregada.html')
 
 def setores(request):
-    return render(request, 'tela_preposta/setores.html')
+    return render(request, 'preposta/setores.html')
 
 def todos_setores(request):
-    return render(request, 'tela_preposta/todos_setores.html')
+    return render(request, 'preposta/todos_setores.html')
 
 def uniformes(request):
-    return render(request, 'tela_preposta/uniformes.html')
+    return render(request, 'preposta/uniformes.html')
 
 def todos_uniformes(request):
-    return render(request, 'tela_preposta/todos_uniformes.html')
+    return render(request, 'preposta/todos_uniformes.html')
 
 def ferias(request):
-    return render(request, 'tela_preposta/ferias.html')
+    return render(request, 'preposta/ferias.html')
 
 def todas_ferias(request):
-    return render(request, 'tela_preposta/todas_ferias.html')
+    return render(request, 'preposta/todas_ferias.html')
+
+
+# Tela encarregada
+
+def enc_home(request):
+    return render(request, 'encarregada/enc_home.html')
+
+def enc_colaboradores(request):
+    return render(request, 'encarregada/enc_colaboradores.html')

@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}
+    Colaboradores
+{% endblock title %}
+{% block menu_usuario %}
+    Bem-vindo ao Portal
+{% endblock menu_usuario %}
+
+{% block menu %}
+    <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
+    <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
+
+    <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
+
+    <li class="has-submenu">
+        <a href="{% url 'setores'%}"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a>  
+    </li>
+    
+    <li class="has-submenu">
+        <a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
+    </li>
+    
+    <li><a href="{% url 'ferias' %}" class="active"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
+    <li class="has-submenu">
+            <a href="" class="todos-setores"><i>🏖️</i> TODAS AS FERIAS</a>
+        
+    </li>
+{% endblock menu %}

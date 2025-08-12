@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <title>setores RCS</title>
+    <title>ENCARREGADAS RCS</title>
 </head>
 <body>
     <div class="container">
@@ -19,19 +19,12 @@
             <ul class="sidebar-menu">
                 <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
                 <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
-
+                <li><a href="#" class="active"><i>👩‍💼</i> ENCARREGADAS </a></li>
+                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a></li>
                 <li class="has-submenu">
-                    <a href="" class="active"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a>
-                    <ul class="submenu">
-                        <li><a href="{% url 'todos_setores'%}" ><i>🏢</i> TODOS OS SETORES</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
+                    <a href=" {% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
                     
                 </li>
-
                 <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
             </ul>
             
@@ -44,7 +37,7 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <header class="header">
-                    <h2>Setores</h2>
+                    <h2>Encarregadas</h2>
                     <div class="user-info">
                         <span>Usuário: Admin</span>
                         <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
@@ -53,14 +46,14 @@
                 
                 <!-- Container para os botões das encarregadas -->
                 <div class="supervisors-container">
-                    {% for setores in seotres %}
-                    <a href="{{ setores.link }}" class="supervisor-btn">
-                        <span class="supervisor-icon">👩‍💼</span>
-                        <span class="supervisor-name">{{ setores.nome }}</span>
-                        {% if seores.count %}
-                        <span class="supervisor-count">{{ setores.count }} colaboradores</span>
-                        {% endif %}
-                    </a>
+                    {% for encarregada in encarregadas %}
+                        <a href="{% url 'cols_encarregada'%}" class="supervisor-btn">
+                            <span class="supervisor-icon">👩‍💼</span>
+                            <span class="supervisor-name">{{ encarregada.nome }}</span>
+                            {% if encarregada.count %}
+                            <span class="supervisor-count">{{ encarregada.count }} colaboradores</span>
+                            {% endif %}
+                        </a>
                     {% endfor %}
                 </div>
             </div>

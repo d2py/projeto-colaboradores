@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <title>ENCARREGADAS RCS</title>
+    <title>Férias RCS</title>
 </head>
 <body>
     <div class="container">
@@ -19,13 +19,17 @@
             <ul class="sidebar-menu">
                 <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
                 <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
-                <li><a href="#" class="active"><i>👩‍💼</i> ENCARREGADAS </a></li>
-                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a></li>
+                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
                 <li class="has-submenu">
-                    <a href=" {% url 'uniformes' %}"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a>
-                    
+                    <a href="{% url 'setores' %}" ><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a>
                 </li>
-                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
+                <li><a href="{% url 'uniformes' %}" ><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a></li>
+                <li class="has-submenu">
+                    <li><a href="" class="active"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
+                    <li class="has-submenu">
+                        <a href="todas_ferias" ><i>🏖️</i> TODAS AS FERIAS</a>
+                    </li>
+                </li>    
             </ul>
             
             <div class="sidebar-credits">
@@ -37,7 +41,7 @@
         <main class="main-content">
             <div class="content-wrapper">
                 <header class="header">
-                    <h2>Encarregadas</h2>
+                    <h2>Ferias</h2>
                     <div class="user-info">
                         <span>Usuário: Admin</span>
                         <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
@@ -46,12 +50,12 @@
                 
                 <!-- Container para os botões das encarregadas -->
                 <div class="supervisors-container">
-                    {% for encarregada in encarregadas %}
-                    <a href="{% url 'cols_encarregada'%}" class="supervisor-btn">
+                    {% for ferias in ferias %}
+                    <a href="{{ ferias.link }}" class="supervisor-btn">
                         <span class="supervisor-icon">👩‍💼</span>
-                        <span class="supervisor-name">{{ encarregada.nome }}</span>
-                        {% if encarregada.count %}
-                        <span class="supervisor-count">{{ encarregada.count }} colaboradores</span>
+                        <span class="supervisor-name">{{ ferias.nome }}</span>
+                        {% if seores.count %}
+                        <span class="supervisor-count">{{ ferias.count }} ferias</span>
                         {% endif %}
                     </a>
                     {% endfor %}
