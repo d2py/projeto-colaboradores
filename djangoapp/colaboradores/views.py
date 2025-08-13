@@ -43,3 +43,6 @@ def enc_home(request):
 
 def enc_colaboradores(request):
     return render(request, 'encarregada/enc_colaboradores.html')
+
+def enc_setores(request):
+    return render(request, 'encarregada/enc_setores.html')

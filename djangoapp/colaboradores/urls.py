@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 from colaboradores.views import home, list_colaboradores, encarregadas, setores, uniformes,todos_uniformes, ferias, colabo_encarregadas, todos_setores, todas_ferias
-from colaboradores.views import enc_home,enc_colaboradores
+from colaboradores.views import enc_home,enc_colaboradores, enc_setores
 app_colaboradores = 'colaboadores'
 
 urlpatterns = [
@@ -19,6 +19,7 @@ urlpatterns = [
     # url da encarrega
     path('enc_home/',enc_home, name='enc_home'),
     path('enc_colaboradores/',enc_colaboradores, name='enc_colaboradores'),
+    path('enc_setores/',enc_setores, name='enc_setores'),
 ]
 
 

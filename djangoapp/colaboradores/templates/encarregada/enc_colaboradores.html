@@ -1,26 +1,97 @@
-{% extends "base.html" %}
-
-{% block title %}
-    colaboradores
-{% endblock title %}
-
-{% block menu_usuario %}
-    Colaboradores
-{% endblock menu_usuario %}
-
-{% block menu %}
-    <li><a href="{% url 'enc_home' %}" ><i>🏠</i> HOME</a></li>
-    <li><a href="{% url 'enc_colaboradores'%}" class="active"><i>👥</i> COLABORADORES</a></li>
-    <li><a href=" "><i>🏢</i> SETORES</a></li>
-    <li><a href=""><i>👕</i> UNIFORMES</a></li>
-    <li><a href=""><i>🏖️</i> FÉRIAS </a></li>  
-{% endblock menu %}
-
-
-
-{% block inserir_colaborador %}
-
-{% endblock inserir_colaborador %}
-{% block inserir_encarregada %}
-
-{% endblock inserir_encarregada %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Colaborador RCS</title>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="#" class="enc_active" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
+                <li><a href=""><i>👕</i> UNIFORMES </a></li>
+                <li><a href=""><i>🏖️</i> FÉRIAS </a></li>
+                
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Lista de Colaboradores</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar colaborador...">
+                    <button>Pesquisar</button>
+                </div>
+                
+                <div class="collaborators-list">
+                    <!-- Exemplo de item de colaborador -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
+                            
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar</button>
+                            <button class="btn btn-delete">Excluir</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
+                            
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar</button>
+                            <button class="btn btn-delete">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
