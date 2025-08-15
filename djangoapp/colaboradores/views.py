@@ -46,3 +46,9 @@ def enc_colaboradores(request):
 
 def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html')
+
+def enc_uniformes(request):
+    return render(request, 'encarregada/enc_uniformes.html')
+
+def enc_ferias(request):
+    return render(request, 'encarregada/enc_ferias.html')

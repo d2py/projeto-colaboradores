@@ -1,0 +1,327 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <title>Colaborador RCS</title>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'enc_colaboradores' %}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
+                <li><a href=""  class="active"><i>👕</i> UNIFORMES </a></li>
+                <li><a href="{% url 'enc_ferias' %}"><i>🏖️</i> FÉRIAS </a></li>
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Uniformes</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar colaborador...">
+                    <button>Pesquisar</button>
+                </div>
+                
+                <div class="collaborators-list">
+                    <!-- Exemplo de item de colaborador -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar Uniforme</button>
+                            <button class="btn btn-delete">Adicionar Uniforme</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar Uniforme</button>
+                            <button class="btn btn-delete">Adicionar Uniforme</button>
+                        </div>
+                    </div>
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar Uniforme</button>
+                            <button class="btn btn-delete">Adicionar Uniforme</button>
+                        </div>
+                    </div>
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar Uniforme</button>
+                            <button class="btn btn-delete">Adicionar Uniforme</button>
+                        </div>
+                    </div>
+                    <!-- Outro exemplo de item -->
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
+                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
+                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
+                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
+                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
+                        </div>
+                        <div class="collaborator-actions">
+                            <button class="btn btn-edit">Editar Uniforme</button>
+                            <button class="btn btn-delete">Adicionar Uniforme</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção de contagem de uniformes -->
+                <div class="uniform-count">
+    <h3>Contagem de Uniformes </h3>
+    <p><strong>Encarregada:</strong> Monica Martins de Oliveira Costa</p>
+    <p><strong>Setores atendidos:</strong> CDT/DPI, DPG, DPI, DIMEQ, C-Biotech, INFRA, PROTOCOLO, ACE, CRAD, CAEP, PCTECH, CEAD, UNB/TV, CET, CDS, MULTIUSO 2</p>
+    
+    <div class="tables-container">
+        <div class="uniform-category">
+            <h4>Blusas</h4>
+            <table class="uniform-table">
+                <!-- Conteúdo da tabela de blusas -->
+                 <tr>
+                                <th>Tamanho</th>
+                                <th>Quantidade</th>
+                                <th>Banherista</th>
+                            </tr>
+                            <tr>
+                                <td>EXTRA G</td>
+                                <td>1</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>G</td>
+                                <td>5</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>G </td>
+                                <td>3</td>
+                                <td>BANHERISTA</td>
+                            </tr>
+                            <tr>
+                                <td>GG</td>
+                                <td>2</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>4</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>M </td>
+                                <td>3</td>
+                                <td>BANHERISTA</td>
+                            </tr>
+                            <tr>
+                                <td>P </td>
+                                <td>2</td>
+                                <td>BANHERISTA</td>
+                            </tr>
+            </table>
+        </div>
+        
+        <div class="uniform-category">
+            <h4>Blusas de Frio</h4>
+            <table class="uniform-table">
+                <!-- Conteúdo da tabela de blusas de frio -->
+                 <tr>
+                                <th>Tamanho</th>
+                                <th>Quantidade</th>
+                            </tr>
+                            <tr>
+                                <td>EXTRA G</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>P</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>G</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>8</td>
+                            </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="tables-container">
+        <div class="uniform-category">
+            <h4>Calças</h4>
+            <table class="uniform-table">
+                <!-- Conteúdo da tabela de calças -->
+                 <tr>
+                                <th>Tamanho</th>
+                                <th>Quantidade</th>
+                            </tr>
+                            <tr>
+                                <td>P</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>GG</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>G</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>9</td>
+                            </tr>
+            </table>
+        </div>
+        
+        <div class="uniform-category">
+            <h4>Sapatos</h4>
+            <table class="uniform-table">
+                <!-- Conteúdo da tabela de sapatos -->
+                 <tr>
+                                <th>Tamanho</th>
+                                <th>Quantidade</th>
+                            </tr>
+                            <tr>
+                                <td>34</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>35</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>36</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>37</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>38</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>39</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>2</td>
+                            </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="uniform-category">
+        <h4>Uniformes da Encarregada</h4>
+        <table class="uniform-table">
+            <!-- Conteúdo da tabela da encarregada -->
+             <tr>
+                                <th>Item</th>
+                                <th>Tamanho</th>
+                                <th>Quantidade</th>
+                            </tr>
+                            <tr>
+                                <td>CALÇA</td>
+                                <td>G</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>BLUSA</td>
+                                <td>M</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>BLUSA DE FRIO</td>
+                                <td>M</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>SAPATO</td>
+                                <td>35</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>GALOCHA</td>
+                                <td>35</td>
+                                <td>1</td>
+                            </tr>
+        </table>
+    </div>
+</div>
+            
+            <footer class="footer">
+                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

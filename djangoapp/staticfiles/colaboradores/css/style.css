@@ -752,3 +752,46 @@ body {
     font-size: 0.85rem;
 }
 }
+
+
+/* Tabela Uniformes */
+.uniform-count {
+        margin-top: 30px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .uniform-count h3 {
+        margin-top: 0;
+        color: #333;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+    .uniform-table {
+        width: auto; /* Alterado para auto para se ajustar ao conteúdo */
+        max-width: 100%; /* Garante que não ultrapasse o container */
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 0.9em; /* Tamanho de fonte menor */
+    }
+    .uniform-table th, .uniform-table td {
+        border: 1px solid #ddd;
+        padding: 6px 8px; /* Padding reduzido */
+        text-align: left;
+    }
+    .uniform-table th {
+        background-color: #141715; /* Cor mais escura para cabeçalho */
+        color: rgb(14, 13, 13);
+        font-weight: bold;
+    }
+    .uniform-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .uniform-category {
+        margin-bottom: 30px;
+    }
+    .uniform-category h4 {
+        margin-bottom: 10px;
+        color: #2c3e50;
+    }

@@ -752,3 +752,47 @@ body {
     font-size: 0.85rem;
 }
 }
+
+
+/* Tabela Uniformes */
+.uniform-count {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.uniform-count h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.uniform-table {
+    width: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+.uniform-table th, .uniform-table td {
+    border: 1px solid #dad8d8;
+    padding: 8px 50px;
+    text-align: left;
+}
+.uniform-table th {
+    background-color: #2c3e50;
+    color: rgb(244, 243, 243);
+    font-weight: bold;
+}
+.uniform-table tr:nth-child(even) {
+    background-color: #91919131;
+}
+.uniform-category {
+    margin-bottom: 30px;
+}
+.uniform-category h4 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+    padding-left: 12px;/* Garante que ocupe toda a largura */
+}
