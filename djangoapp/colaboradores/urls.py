@@ -1,5 +1,5 @@
 
-from django.urls import path, include
+from django.urls import path
 from colaboradores.views import home, list_colaboradores, encarregadas, setores, uniformes,todos_uniformes, ferias, colabo_encarregadas, todos_setores, todas_ferias
 from colaboradores.views import enc_home,enc_colaboradores, enc_setores,enc_uniformes,enc_ferias
 app_colaboradores = 'colaboadores'
