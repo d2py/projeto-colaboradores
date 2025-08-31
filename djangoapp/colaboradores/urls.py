@@ -2,6 +2,12 @@
 from django.urls import path
 from colaboradores.views import home, list_colaboradores, encarregadas, setores, uniformes,todos_uniformes, ferias, colabo_encarregadas, todos_setores, todas_ferias
 from colaboradores.views import enc_home,enc_colaboradores, enc_setores,enc_uniformes,enc_ferias
+
+#Edicao de Funcionario/exclusão/Adicionar
+from colaboradores.views import entrada_funcionario, editar_funcionario, excluir_funcionario
+
+ 
+
 app_colaboradores = 'colaboadores'
 
 urlpatterns = [
@@ -22,6 +28,13 @@ urlpatterns = [
     path('enc_setores/',enc_setores, name='enc_setores'),
     path('enc_uniformes/',enc_uniformes, name='enc_uniformes'),
     path('enc_ferias/',enc_ferias, name='enc_ferias'),
+
+    #Formulario 
+    path('entrada_funcionario/',entrada_funcionario, name="entrada_funcionario" ),
+    # Edicao
+    path('editar_funcionario/<int:pk>', editar_funcionario, name="editar_funcionario"),
+    path('excluir_funcionario/<int:pk>', excluir_funcionario, name="excluir_funcionario"),
+
 ]
 
 

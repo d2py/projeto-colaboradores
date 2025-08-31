@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +10,7 @@
     
 </head>
 <body>
+
     <div class="container">
         <!-- Barra lateral de navegação -->
         <aside class="sidebar">
@@ -22,7 +24,7 @@
                 <li><a href="" class="active" ><i>👥</i> COLABORADORES</a></li>
                 <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
                 <li><a href="{% url 'enc_uniformes' %}"><i>👕</i> UNIFORMES </a></li>
-                <li><a href=""><i>🏖️</i> FÉRIAS </a></li>
+                <li><a href="{% url 'enc_ferias'%}"><i>🏖️</i> FÉRIAS </a></li>
                 
             </ul>
             
@@ -32,6 +34,7 @@
         </aside>
         
         <!-- Conteúdo principal -->
+
         <main class="main-content">
             <div class="content-wrapper">
                 <header class="header">
@@ -46,46 +49,34 @@
                     <input type="text" placeholder="Pesquisar colaborador...">
                     <button>Pesquisar</button>
                 </div>
+           
+                
+
+                {% for colaboradores in colaboradores%}
                 
                 <div class="collaborators-list">
                     <!-- Exemplo de item de colaborador -->
                     <div class="collaborator-item">
                         <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
+                            <div class="collaborator-field"><strong>Matrícula:</strong> {{colaboradores.matricula_funcionario}}</div>
+                            <div class="collaborator-field"><strong>Nome:</strong> {{colaboradores.nome_funcionario}}</div>
                             <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
-                            
+                            <div class="collaborator-field"><strong>Banheirista:</strong> {{colaboradores.status}}</div>
+                            <div class="collaborator-field"><strong>Ferias:</strong> {{colaboradores.ferias}}</div>
                         </div>
                         <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> Janeiro</div>
-                            
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
+                            <a href="{% url 'editar_funcionario' colaboradores.pk %}" class="btn btn-edit">Editar</a>
+                            <form method="POST" action="{% url 'excluir_funcionario' colaboradores.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-delete" >
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
+                {% endfor%}
+
             </div>
             
             <footer class="footer">

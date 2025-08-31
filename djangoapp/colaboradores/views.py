@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404,render, redirect
 
+from django.contrib import messages
 # Create your views here.
+from colaboradores.models import Funcionario
+# Formulario
+from colaboradores.forms import FuncionarioForm
+
+
 
 # Tela da Preposta
 def home(request):
@@ -39,8 +45,11 @@ def todas_ferias(request):
 def enc_home(request):
     return render(request, 'encarregada/enc_home.html')
 
+
 def enc_colaboradores(request):
-    return render(request, 'encarregada/enc_colaboradores.html')
+    colaboradores = Funcionario.objects.all()
+    return render(request, 'encarregada/enc_colaboradores.html', {'colaboradores': colaboradores})
+
 
 def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html')
@@ -49,4 +58,44 @@ def enc_uniformes(request):
     return render(request, 'encarregada/enc_uniformes.html')
 
 def enc_ferias(request):
+
     return render(request, 'encarregada/enc_ferias.html')
+
+
+#Formularios
+def entrada_funcionario(request):
+    if request.method == "POST":
+        form = FuncionarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("enc_home")
+    else:
+        form = FuncionarioForm()
+    return render(request, "forms/entrada_funcionario.html", {'form':form})    
+
+
+# Editar informaçoes
+def editar_funcionario(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)
+    if request.method == "POST":
+        form = FuncionarioForm(request.POST, instance=funcionario)
+        if form.is_valid():
+            form.save()
+            return redirect('enc_colaboradores')
+    else:
+        form = FuncionarioForm(instance=funcionario)
+
+    return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
+
+
+# Excluir um Funcionario 
+def excluir_funcionario(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)   
+    if request.method == "POST":
+        funcionario.delete()
+        messages.success(request,'Funcionario excluido com sucesso')
+        return redirect('enc_colaboradores')
+    else:
+        return render(request, 'edicao/excluir_funcionario.html', {'funcionario':funcionario})
+
+  

@@ -1,3 +1,79 @@
 from django.db import models
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 
-# Create your models here.
+
+
+
+FERIAS=(
+    ('JAN', "Janeiro"),
+    ('FEV', "Fevereiro"),
+    ('MAR', "Marcio"),
+    ('ABR', "ABRIL"),
+    ('MAI', "MAIO"),
+    ('JUN', "Junho"),
+    ('JUl', "Julho"),
+    ('AGO', "Agosto"),
+    ('SET', "Setembro"),
+    ('OUT', "Outubro"),
+    ('NOV', "Novembro"),
+    ('DES', "Desembro"),
+)
+
+STATUS = (
+    ('SIM', "Banheirista"),
+    ('NAO', "Não Banheirista")
+)
+
+TAMANHO_ROUPA=(
+    ("P", "P"),
+    ("M", "M"),
+    ("G", "G"),
+    ("GG", "GG"),
+    ("EXTRAG", "EXTRA GG")   
+)
+
+TAMANHO_CALCADO=(
+    (34, "34"),
+    (35, "35"),
+    (36, "36"),
+    (37, "37"),
+    (38, "38"),
+    (39, "39"),
+    (40, "40"),
+    (41, "41"),
+    (42, "42"),
+    (43, "43"),
+    (44, "44"),
+    (45, "45")
+)
+
+class Funcionario(models.Model):
+    matricula_funcionario = models.PositiveIntegerField(primary_key=True)
+    nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
+        r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+        'Apenas letras são permitido no nome.'
+    )])
+    status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
+    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3, null=True )
+
+    def __str__(self):
+        return self.nome_funcionario
+
+class Uniformes(models.Model):
+    calca = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Calça", null=False, blank=False)
+    blusa = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa", null=False, blank=False)
+    blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa_Frio", null=True)
+    sapato = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO,  verbose_name="Sapato")
+    galocha = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO, validators=[
+        MinValueValidator(34),
+        MaxValueValidator(45)
+    ])
+    matricula_funcionario = models.OneToOneField(Funcionario,null=True, on_delete=models.CASCADE, related_name='uniformes')
+
+
+class Setores(models.Model):
+    setor = models.CharField(max_length=40, verbose_name='Setores', null=False, unique=True )
+    matricula_funcionario = models.ForeignKey(Funcionario,null=True,on_delete=models.SET_NULL,related_name='setores')
+    
+    def __str__(self):
+        return self.setor

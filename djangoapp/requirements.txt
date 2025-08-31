@@ -6,3 +6,5 @@ platformdirs==4.3.8
 psycopg2-binary==2.9.10
 sqlparse==0.5.3
 virtualenv==20.31.2
+django-crispy-forms==2.3
+crispy_bootstrap5==2025.6
