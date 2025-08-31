@@ -34,7 +34,7 @@
         </aside>
         
         <!-- Conteúdo principal -->
-
+        
         <main class="main-content">
             <div class="content-wrapper">
                 <header class="header">
@@ -49,7 +49,7 @@
                     <input type="text" placeholder="Pesquisar colaborador...">
                     <button>Pesquisar</button>
                 </div>
-           
+                
                 
 
                 {% for colaboradores in colaboradores%}
@@ -66,12 +66,7 @@
                         </div>
                         <div class="collaborator-actions">
                             <a href="{% url 'editar_funcionario' colaboradores.pk %}" class="btn btn-edit">Editar</a>
-                            <form method="POST" action="{% url 'excluir_funcionario' colaboradores.pk %}" style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-delete" >
-                                    <i class="fas fa-trash"></i> Excluir
-                                </button>
-                            </form>
+                            <a href="{% url 'excluir_funcionario' colaboradores.pk %}" class="btn btn-delete" >Excluir</a>
                         </div>
                     </div>
                 </div>
