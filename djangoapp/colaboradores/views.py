@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404,render, redirect
 
 from django.contrib import messages
 # Create your views here.
-from colaboradores.models import Funcionario
+from colaboradores.models import Funcionario, Setores
 # Formulario
-from colaboradores.forms import FuncionarioForm
+from colaboradores.forms import FuncionarioForm, SetorForm
 
 
 
@@ -52,7 +52,8 @@ def enc_colaboradores(request):
 
 
 def enc_setores(request):
-    return render(request, 'encarregada/enc_setores.html')
+    setores = Setores.objects.all().order_by('setor')
+    return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 def enc_uniformes(request):
     return render(request, 'encarregada/enc_uniformes.html')
@@ -74,6 +75,19 @@ def entrada_funcionario(request):
     return render(request, "forms/entrada_funcionario.html", {'form':form})    
 
 
+def registrar_setor(request):
+    if request.method == "POST":
+        form = SetorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("enc_home")
+    else:
+        form = SetorForm()
+    return render(request, "forms/setor_form.html", {'form':form}) 
+
+
+
+
 # Editar informaçoes
 def editar_funcionario(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
@@ -86,6 +100,19 @@ def editar_funcionario(request, pk):
         form = FuncionarioForm(instance=funcionario)
 
     return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
+
+def editar_setor(request, pk):
+    setor = get_object_or_404(Setores, pk=pk)
+    if request.method == "POST":
+        form = SetorForm(request.POST, instance=setor)
+        if form.is_valid():
+            form.save()
+            return redirect('enc_setores')
+    else:
+        form = SetorForm(instance=setor)
+
+    return render(request, 'edicao/editar_setor.html', {"forms":form, 'setor':setor})
+
 
 
 # Excluir um Funcionario 

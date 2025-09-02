@@ -1,12 +1,13 @@
 {% load static %}
-<!DOCTYPE html>
+{% load crispy_forms_tags %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/lista_setores.css'%}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
     <title>Colaborador RCS</title>
+    
 </head>
 <body>
     <div class="container">
@@ -23,7 +24,6 @@
                 <li><a href="{% url 'enc_setores' %}" class="active"><i>🏢</i> SETORES </a></li>
                 <li><a href="{% url 'enc_uniformes' %}" ><i>👕</i> UNIFORMES</a></li>
                 <li><a href="{% url 'enc_ferias' %}"><i>🏖️</i> FÉRIAS </a></li>
-                
             </ul>
             
             <div class="sidebar-credits">
@@ -43,57 +43,30 @@
                 </header>
                 <div class="content">                    
                     <div class="card-container">
-                        
-                            <div class="card">
-                                <h3>Inserir Setor</h3>
-                                <p>Adicione um novo Setor.</p>
-                                <a href="formulario-encarregada.html" class="card-btn">Acessar Formulário</a>
-                            </div>
-                        </div>    
-                 </div> 
-                <div class="collaborators-list">
-                    <!-- Exemplo com muitos setores -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            
-                            <div class="setores-grid">
-                                <!-- Grupo 1 -->
-                                <div class="setores-group">
-                                    <li>DIMEQ</li>
-                                    <li>STI</li>
-                                    <li>Limpeza</li>
-                                    <li>Almoxarifado</li>
-                                </div>
-                                <!-- Grupo 2 -->
-                                <div class="setores-group">
-                                    <li>Recepção</li>
-                                    <li>Cozinha</li>
-                                    <li>Refeitório</li>
-                                    <li>Lavanderia</li>
-                                </div>
-                                <!-- Grupo 3 -->
-                                <div class="setores-group">
-                                    <li>Manutenção</li>
-                                    <li>Segurança</li>
-                                    <li>Transporte</li>
-                                    <li>Jardim</li>
-                                </div>
-                                <!-- Grupo 4 -->
-                                <div class="setores-group">
-                                    <li>Administração</li>
-                                    <li>RH</li>
-                                    <li>Financeiro</li>
-                                    <li>Compras</li>
-                                </div>
-                                <!-- Grupo 5 -->
-                                <div class="setores-group">
-                                    <li>TI</li>
-                                    <li>Marketing</li>
-                                    <li>Vendas</li>
-                                    <li>Atendimento</li>
-                                </div>
-                            </div>
+                        <div class="card">
+                            <h3>Inserir Setor</h3>
+                            <p>Adicione um novo Setor.</p>
+                            <a href="{% url 'registrar_setor'%}" class="card-btn">Acessar Formulário</a>
                         </div>
+                        <div class="card">
+                            <h3>Inserir Setor</h3>
+                            <p>Adicione um novo Setor.</p>
+                            <a href="{% url 'registrar_setor'%}" class="card-btn">Acessar Formulário</a>
+                        </div>
+                    </div> 
+                          
+                </div> 
+                
+                <!-- ÁREA MODIFICADA - Lista de Setores em 6 colunas -->
+                <div class="setores-container">
+                    <h3 class="setores-title">Setores Cadastrados</h3>
+                    <div class="setores-grid">
+                        <!-- Setores renderizados diretamente em 6 colunas -->
+                        {% for setor in setores %}
+                        <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{ setor.setor }}</a></div>
+                        {% empty %}
+                        <div class="setor-item">Nenhum setor cadastrado</div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

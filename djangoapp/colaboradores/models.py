@@ -48,7 +48,7 @@ TAMANHO_CALCADO=(
 )
 
 class Funcionario(models.Model):
-    matricula_funcionario = models.PositiveIntegerField(primary_key=True)
+    matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
     nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
         r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'
@@ -72,8 +72,15 @@ class Uniformes(models.Model):
 
 
 class Setores(models.Model):
-    setor = models.CharField(max_length=40, verbose_name='Setores', null=False, unique=True )
-    matricula_funcionario = models.ForeignKey(Funcionario,null=True,on_delete=models.SET_NULL,related_name='setores')
+    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
+        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+        'Apenas letras são permitido no nome.'
+    )])
+    def save(self, *args, **kwargs):
+        self.setor = self.setor.upper()
+        super().save(*args, **kwargs)
+
+    matricula_funcionario = models.ForeignKey(Funcionario,null=True,blank=True ,on_delete=models.SET_NULL,related_name='setores')
     
     def __str__(self):
         return self.setor
