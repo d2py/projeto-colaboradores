@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
     <title>Colaborador RCS</title>
     
 </head>
@@ -70,6 +71,8 @@
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                        <div class="setor-item">Nenhum funcionario cadastrado</div>
                 {% endfor%}
 
             </div>

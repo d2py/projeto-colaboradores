@@ -1,0 +1,71 @@
+
+/* ESTILOS ESPECÍFICOS PARA 6 COLUNAS */
+.setores-container {
+    width: 100%;
+    overflow: visible;
+}
+
+.setores-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 colunas */
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.setor-item {
+    background: #f0f0f0;
+    padding: 12px 15px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 4px solid #3498db;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.setor-item:hover {
+    background: #e3e3e3;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.setores-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3498db;
+}
+
+/* Responsividade para diferentes tamanhos de tela */
+@media (max-width: 1600px) {
+    .setores-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 colunas em telas grandes */
+    }
+}
+
+@media (max-width: 1300px) {
+    .setores-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+    }
+}
+
+@media (max-width: 1024px) {
+    .setores-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    }
+}
+
+@media (max-width: 768px) {
+    .setores-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    }
+}
+
+@media (max-width: 480px) {
+    .setores-grid {
+        grid-template-columns: 1fr; /* 1 coluna */
+    }
+}

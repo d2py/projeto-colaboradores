@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
     <title>Colaborador RCS</title>
 </head>
 <body>
@@ -51,7 +52,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -63,7 +64,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -75,7 +76,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -89,7 +90,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -101,7 +102,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -113,7 +114,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -127,7 +128,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -139,7 +140,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -151,7 +152,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -165,7 +166,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -177,7 +178,7 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
+                                
                             </div>
                             {% endfor %}
                         </div>
@@ -189,8 +190,9 @@
                                 <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
                                 <p><strong>Nome:</strong> {{ ferias.nome }}</p>
                                 <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                <p><strong>Encarregada:</strong> {{ ferias.encarregada }}</p>
                             </div>
+                            {% empty %}
+                                <div class="setor-item">Nenhum funcionario de ferias</div>
                             {% endfor %}
                         </div>
                     </div>
