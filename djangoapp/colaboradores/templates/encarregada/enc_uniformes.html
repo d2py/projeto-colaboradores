@@ -41,97 +41,52 @@
                     </div>
                 </header>
                 
+                <div class="content">                    
+                    <div class="card-container">
+                        <div class="card">
+                            <h3>Imprimir Lista de uniforme</h3>
+                            <p>Adicione um novo Setor.</p>
+                            <a href="" class="card-btn">Acessar Formulário</a>
+                        </div>
+                        <div class="card">
+                            <h3>Inserir Setor</h3>
+                            <p>Adicione um novo Setor.</p>
+                            <a href="{% url 'registrar_setor'%}" class="card-btn">Acessar Formulário</a>
+                        </div>
+                    </div> 
+                          
+                </div> 
                 <div class="search-bar">
                     <input type="text" placeholder="Pesquisar colaborador...">
                     <button>Pesquisar</button>
                 </div>
                 
+                
                 <div class="collaborators-list">
                     <!-- Exemplo de item de colaborador -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                     {% for funcionario in funcionario%}
+                        <div class="collaborator-item">
+                            
+                            <div class="collaborator-info">
+                                <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Calça:</strong>{{uniforme.calca}}</div>
+                                <div class="collaborator-field"><strong>Blusa:</strong> {{uniforme.blusa}}</div>
+                                <div class="collaborator-field"><strong>Sapato:</strong> {{uniforme.blusa_frio}}</div>
+                                <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.sapato}}</div>
+                                <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.galocha}}</div>
+                                <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                            </div>
+                            <div class="collaborator-actions">
+                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.pk%}" class="card-btn">Adicioar</a>
+                                 <a href="{% url 'registrar_setor'%}" class="card-btn">Editar</a>
+                                 <a href="{% url 'registrar_setor'%}" class="card-btn">Excluir</a>
+                            </div>                        
                         </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar Uniforme</button>
-                            <button class="btn btn-delete">Adicionar Uniforme</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar Uniforme</button>
-                            <button class="btn btn-delete">Adicionar Uniforme</button>
-                        </div>
-                    </div>
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar Uniforme</button>
-                            <button class="btn btn-delete">Adicionar Uniforme</button>
-                        </div>
-                    </div>
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar Uniforme</button>
-                            <button class="btn btn-delete">Adicionar Uniforme</button>
-                        </div>
-                    </div>
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar Uniforme</button>
-                            <button class="btn btn-delete">Adicionar Uniforme</button>
-                        </div>
-                    </div>
-                </div>
-
+                    {% endfor%}
                 <!-- Seção de contagem de uniformes -->
                 <div class="uniform-count">
+                    
     <h3>Contagem de Uniformes </h3>
     <p><strong>Encarregada:</strong> Monica Martins de Oliveira Costa</p>
     <p><strong>Setores atendidos:</strong> CDT/DPI, DPG, DPI, DIMEQ, C-Biotech, INFRA, PROTOCOLO, ACE, CRAD, CAEP, PCTECH, CEAD, UNB/TV, CET, CDS, MULTIUSO 2</p>

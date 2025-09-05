@@ -54,7 +54,7 @@ class Funcionario(models.Model):
         'Apenas letras são permitido no nome.'
     )])
     status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
-    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3, null=True )
+    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
 
     def __str__(self):
         return self.nome_funcionario
@@ -68,7 +68,7 @@ class Uniformes(models.Model):
         MinValueValidator(34),
         MaxValueValidator(45)
     ])
-    matricula_funcionario = models.OneToOneField(Funcionario,null=True, on_delete=models.CASCADE, related_name='uniformes')
+    matricula_funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniformes')
 
 
 class Setores(models.Model):

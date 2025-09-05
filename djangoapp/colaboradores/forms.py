@@ -1,6 +1,6 @@
 from django import  forms 
 
-from colaboradores.models import Funcionario, Setores
+from colaboradores.models import Funcionario, Setores, Uniformes
 
 
 class FuncionarioForm(forms.ModelForm):
@@ -19,4 +19,16 @@ class SetorForm(forms.ModelForm):
         model = Setores
         fields=[
             "setor"
+        ]
+
+class UniformeForm(forms.ModelForm):
+    class Meta:
+        model = Uniformes
+        fields=[
+            "calca",
+            "blusa",
+            "blusa_frio",
+            "sapato",
+            "galocha",
+            
         ]

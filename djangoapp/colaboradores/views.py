@@ -1,10 +1,11 @@
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404,render, redirect
 
 from django.contrib import messages
 # Create your views here.
-from colaboradores.models import Funcionario, Setores
+from colaboradores.models import Funcionario, Setores, Uniformes
 # Formulario
-from colaboradores.forms import FuncionarioForm, SetorForm
+from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm
 
 
 
@@ -56,7 +57,9 @@ def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 def enc_uniformes(request):
-    return render(request, 'encarregada/enc_uniformes.html')
+    funcionario = Funcionario.objects.all()
+    uniforme = Uniformes.objects.all().select_related('matricula_funcionario')
+    return render(request, 'encarregada/enc_uniformes.html',{'funcionario':funcionario})
 
 def enc_ferias(request):
 
@@ -79,13 +82,28 @@ def registrar_setor(request):
     if request.method == "POST":
         form = SetorForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("enc_home")
+            try:
+                form.save()
+                messages.success(request, "Setor cadastrado com sucesso")
+                return redirect("registrar_setor")
+            except IntegrityError:
+                messages.error(request, "Erro: Este setor ja existe!")
     else:
         form = SetorForm()
     return render(request, "forms/setor_form.html", {'form':form}) 
 
-
+def registrar_uniforme(request, pk):
+    
+    form = UniformeForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            uniforme = form.save(commit=False)
+            uniforme.matricula_funcionario = get_object_or_404(Funcionario, pk=pk)
+            uniforme.save()
+            return redirect("enc_uniformes")
+    else:
+        form = UniformeForm()
+    return render(request, "forms/uniforme_form.html", {'form':form})  
 
 
 # Editar informaçoes
