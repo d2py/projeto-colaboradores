@@ -47,153 +47,178 @@
                     <div class="meses-bloco">
                         <div class="mes-ferias">
                             <h3>Janeiro</h3>
-                            {% for ferias in ferias_janeiro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                            
+                                {% for ferias in ferias%}
+                                    {% if ferias.ferias == "JAN" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                                 
-                            </div>
-                            {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Fevereiro</h3>
-                            {% for ferias in ferias_fevereiro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "FEV" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Março</h3>
-                            {% for ferias in ferias_marco %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "MAR" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                     </div>
                     
                     <div class="meses-bloco">
                         <div class="mes-ferias">
                             <h3>Abril</h3>
-                            {% for ferias in ferias_abril %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "ABR" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Maio</h3>
-                            {% for ferias in ferias_maio %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "MAI" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Junho</h3>
-                            {% for ferias in ferias_junho %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "JUN" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                     </div>
                     
                     <div class="meses-bloco">
                         <div class="mes-ferias">
                             <h3>Julho</h3>
-                            {% for ferias in ferias_julho %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "JUL" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
                             {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Agosto</h3>
-                            {% for ferias in ferias_agosto %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "AGO" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Setembro</h3>
-                            {% for ferias in ferias_setembro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "SET" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                     </div>
                     
                     <div class="meses-bloco">
                         <div class="mes-ferias">
                             <h3>Outubro</h3>
-                            {% for ferias in ferias_outubro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "OUT" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Novembro</h3>
-                            {% for ferias in ferias_novembro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                                
-                            </div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "NOV" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                         
                         <div class="mes-ferias">
                             <h3>Dezembro</h3>
-                            {% for ferias in ferias_dezembro %}
-                            <div class="colaborador-ferias">
-                                <p><strong>Matrícula:</strong> {{ ferias.matricula }}</p>
-                                <p><strong>Nome:</strong> {{ ferias.nome }}</p>
-                                <p><strong>Setor:</strong> {{ ferias.setor }}</p>
-                            </div>
-                            {% empty %}
-                                <div class="setor-item">Nenhum funcionario de ferias</div>
-                            {% endfor %}
+                            {% for ferias in ferias%}
+                                    {% if ferias.ferias == "DEZ" %}
+                                        <div class="colaborador-ferias">
+                                            <p><strong>Matrícula:</strong> {{ ferias.matricula_funcionario}}</p>
+                                            <p><strong>Nome:</strong> {{ ferias.nome_funcionario }}</p>
+                                            <p><strong>Setor:</strong> {{ ferias.setor }}</p>
+                                            
+                                        </div>
+                                    {%endif%}
+                                {% endfor %}
                         </div>
                     </div>
                 </div>

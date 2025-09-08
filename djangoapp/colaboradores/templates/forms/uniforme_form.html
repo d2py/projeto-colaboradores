@@ -14,13 +14,13 @@
 <body>
     <div class="form-container">
         <h1 class="form-title">
-            <i class="fas fa-edit me-2"></i>Formulário
+            <i class="fas fa-edit me-2"></i>Adicioar Uniforme
         </h1>
 
         <form action="." method="POST" novalidate>
             {% csrf_token %}
             
-            {% if form.errors %}
+            {% if forms.errors %}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     Por favor, corrija os erros abaixo.
@@ -28,7 +28,7 @@
                 </div>
             {% endif %}
 
-            {{ form|crispy }}
+            {{ forms|crispy }}
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                 <a href="{% url 'enc_uniformes' %}" class="btn btn-primary">

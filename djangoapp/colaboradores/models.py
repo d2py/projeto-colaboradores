@@ -7,16 +7,16 @@ from django.core.validators import RegexValidator, MinValueValidator, MaxValueVa
 FERIAS=(
     ('JAN', "Janeiro"),
     ('FEV', "Fevereiro"),
-    ('MAR', "Marcio"),
+    ('MAR', "Março"),
     ('ABR', "ABRIL"),
     ('MAI', "MAIO"),
     ('JUN', "Junho"),
-    ('JUl', "Julho"),
+    ('JUL', "Julho"),
     ('AGO', "Agosto"),
     ('SET', "Setembro"),
     ('OUT', "Outubro"),
     ('NOV', "Novembro"),
-    ('DES', "Desembro"),
+    ('DEZ', "Desembro"),
 )
 
 STATUS = (
@@ -62,13 +62,16 @@ class Funcionario(models.Model):
 class Uniformes(models.Model):
     calca = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Calça", null=False, blank=False)
     blusa = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa", null=False, blank=False)
-    blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa_Frio", null=True)
-    sapato = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO,  verbose_name="Sapato")
-    galocha = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO, validators=[
+    blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa_Frio", null=False, blank=False)
+    sapato = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO,  verbose_name="Sapato",null=False, blank=False,validators=[
         MinValueValidator(34),
         MaxValueValidator(45)
     ])
-    matricula_funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniformes')
+    galocha = models.PositiveSmallIntegerField(choices=TAMANHO_CALCADO, validators=[
+        MinValueValidator(34),
+        MaxValueValidator(45)
+    ],null=False, blank=False)
+    matricula_funcionario_id = models.OneToOneField(Funcionario,null=True,blank=False , on_delete=models.CASCADE, related_name='uniformes')
 
 
 class Setores(models.Model):

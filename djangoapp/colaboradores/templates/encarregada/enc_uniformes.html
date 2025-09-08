@@ -70,17 +70,17 @@
                             <div class="collaborator-info">
                                 <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
                                 <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                                <div class="collaborator-field"><strong>Calça:</strong>{{uniforme.calca}}</div>
-                                <div class="collaborator-field"><strong>Blusa:</strong> {{uniforme.blusa}}</div>
-                                <div class="collaborator-field"><strong>Sapato:</strong> {{uniforme.blusa_frio}}</div>
-                                <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.sapato}}</div>
-                                <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.galocha}}</div>
+                                <div class="collaborator-field"><strong>Calça:</strong></div>
+                                <div class="collaborator-field"><strong>Blusa:</strong> </div>
+                                <div class="collaborator-field"><strong>Sapato:</strong> </div>
+                                <div class="collaborator-field"><strong>Galocha:</strong> </div>
+                                <div class="collaborator-field"><strong>Galocha:</strong> </div>
                                 <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
                             </div>
                             <div class="collaborator-actions">
-                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.pk%}" class="card-btn">Adicioar</a>
-                                 <a href="{% url 'registrar_setor'%}" class="card-btn">Editar</a>
-                                 <a href="{% url 'registrar_setor'%}" class="card-btn">Excluir</a>
+                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.matricula_funcionario%}" class="card-btn">Adicioar</a>
+                                 <a href="" class="card-btn">Editar</a>
+                                 <a href="" class="card-btn">Excluir</a>
                             </div>                        
                         </div>
                     {% endfor%}

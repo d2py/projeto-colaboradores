@@ -15,7 +15,7 @@ urlpatterns = [
     path('home/',home, name='home'),
     path('colaboradores/',list_colaboradores, name='colaboradores'),
     path('encarregadas/', encarregadas, name='encarregadas'),
-    path('cols_encarregada/', colabo_encarregadas, name='cols_encarregada'),
+    path('colaboradores/encarregada/', colabo_encarregadas, name='cols_encarregada'),
     path('setores/', setores, name='setores'),
     path('setores/todos_setores/', todos_setores, name='todos_setores'),
     path('uniformes/', uniformes, name='uniformes'),
@@ -30,13 +30,13 @@ urlpatterns = [
     path('enc_ferias/',enc_ferias, name='enc_ferias'),
 
     #Formulario 
-    path('entrada_funcionario/',entrada_funcionario, name="entrada_funcionario" ),
-    path('adicionar_setor/',registrar_setor, name="registrar_setor" ),
-    path('adicionar_uniforme/<int:pk>',registrar_uniforme, name="adicionar_uniforme" ),
+    path('entrada/funcionario/',entrada_funcionario, name="entrada_funcionario" ),
+    path('adicionar/setor/',registrar_setor, name="registrar_setor" ),
+    path('adicionar/uniforme/<int:pk>',registrar_uniforme, name="adicionar_uniforme" ),
     # Edicao
-    path('editar_funcionario/<int:pk>', editar_funcionario, name="editar_funcionario"),
-    path('excluir_funcionario/<int:pk>', excluir_funcionario, name="excluir_funcionario"),
-    path('editar_setor/<int:pk>', editar_setor, name="editar_setor"),
+    path('editar/funcionario/<int:pk>', editar_funcionario, name="editar_funcionario"),
+    path('excluir/funcionario/<int:pk>', excluir_funcionario, name="excluir_funcionario"),
+    path('editar/setor/<int:pk>', editar_setor, name="editar_setor"),
 
 ]
 

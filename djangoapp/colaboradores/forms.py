@@ -25,6 +25,7 @@ class UniformeForm(forms.ModelForm):
     class Meta:
         model = Uniformes
         fields=[
+            
             "calca",
             "blusa",
             "blusa_frio",

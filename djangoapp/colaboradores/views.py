@@ -1,4 +1,5 @@
 from django.db import IntegrityError
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404,render, redirect
 
 from django.contrib import messages
@@ -58,12 +59,12 @@ def enc_setores(request):
 
 def enc_uniformes(request):
     funcionario = Funcionario.objects.all()
-    uniforme = Uniformes.objects.all().select_related('matricula_funcionario')
     return render(request, 'encarregada/enc_uniformes.html',{'funcionario':funcionario})
 
-def enc_ferias(request):
 
-    return render(request, 'encarregada/enc_ferias.html')
+def enc_ferias(request):
+    ferias = Funcionario.objects.all()
+    return render(request, 'encarregada/enc_ferias.html',{'ferias':ferias})
 
 
 #Formularios
@@ -93,17 +94,16 @@ def registrar_setor(request):
     return render(request, "forms/setor_form.html", {'form':form}) 
 
 def registrar_uniforme(request, pk):
-    
-    form = UniformeForm(request.POST or None)
+    forms = UniformeForm(request.POST or None)
     if request.method == "POST":
-        if form.is_valid():
-            uniforme = form.save(commit=False)
-            uniforme.matricula_funcionario = get_object_or_404(Funcionario, pk=pk)
+        if forms.is_valid():
+            uniforme = forms.save(commit=False)
+            uniforme.matricula_funcionario(Funcionario,pk=pk)
             uniforme.save()
-            return redirect("enc_uniformes")
+            return redirect('enc_uniformes')
     else:
-        form = UniformeForm()
-    return render(request, "forms/uniforme_form.html", {'form':form})  
+        forms = UniformeForm()
+    return render(request, "forms/uniforme_form.html", {'forms':forms})  
 
 
 # Editar informaçoes
