@@ -64,18 +64,31 @@
                 
                 <div class="collaborators-list">
                     <!-- Exemplo de item de colaborador -->
-                     {% for funcionario in funcionario%}
+                     {% for funcionario in funcionarios%}
                         <div class="collaborator-item">
                             
                             <div class="collaborator-info">
                                 <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
                                 <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                                <div class="collaborator-field"><strong>Calça:</strong></div>
-                                <div class="collaborator-field"><strong>Blusa:</strong> </div>
-                                <div class="collaborator-field"><strong>Sapato:</strong> </div>
-                                <div class="collaborator-field"><strong>Galocha:</strong> </div>
-                                <div class="collaborator-field"><strong>Galocha:</strong> </div>
-                                <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
+                                {% if uniforme%}
+                                    {% for uniforme in uniforme%}
+                                        <div class="collaborator-field"><strong>Calça:</strong>{{uniforme.calca}}</div>
+                                        <div class="collaborator-field"><strong>Blusa:</strong>{{uniforme.blusa}} </div>
+                                        <div class="collaborator-field"><strong>Sapato:</strong> {{uniforme.sapato}}</div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.galocha}}</div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.calca}}</div>
+                                        
+                                    {%endfor%}
+                                {%else%}
+
+                                    <div class="collaborator-field"><em>Nenhum uniforme cadastrado</em></div>
+                                {%endif%} 
+
+                                {% if funcionario.setores%}
+                                <div class="collaborator-field"><strong>Setor:</strong> {{funcionario.setor.setor}}</div>
+                                {%else%}
+                                <div class="collaborator-field"><em>Nenhum setor cadastrado</em></div>
+                                {%endif%}
                             </div>
                             <div class="collaborator-actions">
                                  <a href="{% url 'adicionar_uniforme' pk=funcionario.matricula_funcionario%}" class="card-btn">Adicioar</a>

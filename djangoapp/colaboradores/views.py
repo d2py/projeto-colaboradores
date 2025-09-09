@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404,render, redirect
-
+from django.db.models import Prefetch
 from django.contrib import messages
 # Create your views here.
 from colaboradores.models import Funcionario, Setores, Uniformes
@@ -58,8 +58,9 @@ def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 def enc_uniformes(request):
-    funcionario = Funcionario.objects.all()
-    return render(request, 'encarregada/enc_uniformes.html',{'funcionario':funcionario})
+    funcionarios = Funcionario.objects.all()
+    uniforme = Uniformes.objects.all()
+    return render(request, 'encarregada/enc_uniformes.html',{'funcionarios':funcionarios, "uniforme":uniforme})
 
 
 def enc_ferias(request):
@@ -93,17 +94,21 @@ def registrar_setor(request):
         form = SetorForm()
     return render(request, "forms/setor_form.html", {'form':form}) 
 
+
 def registrar_uniforme(request, pk):
-    forms = UniformeForm(request.POST or None)
+    funcionario = Funcionario.objects.get(pk=pk)  # busca o funcionário
+    form = UniformeForm(request.POST or None)
+    
     if request.method == "POST":
-        if forms.is_valid():
-            uniforme = forms.save(commit=False)
-            uniforme.matricula_funcionario(Funcionario,pk=pk)
+        if form.is_valid():
+            uniforme = form.save(commit=False)
+            uniforme.matricula_funcionario = funcionario  # atribui o objeto
             uniforme.save()
             return redirect('enc_uniformes')
     else:
-        forms = UniformeForm()
-    return render(request, "forms/uniforme_form.html", {'forms':forms})  
+        form = UniformeForm()
+    
+    return render(request, "forms/uniforme_form.html", {'forms': form, 'funcionario': funcionario})
 
 
 # Editar informaçoes
