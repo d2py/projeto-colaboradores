@@ -58,9 +58,10 @@ def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 def enc_uniformes(request):
-    funcionarios = Funcionario.objects.all()
-    uniforme = Uniformes.objects.all()
-    return render(request, 'encarregada/enc_uniformes.html',{'funcionarios':funcionarios, "uniforme":uniforme})
+    funcionarios = Uniformes.objects.select_related('funcionario_uniforme').all()
+        
+        
+    return render(request, 'encarregada/enc_uniformes.html',{'funcionarios':funcionarios})
 
 
 def enc_ferias(request):

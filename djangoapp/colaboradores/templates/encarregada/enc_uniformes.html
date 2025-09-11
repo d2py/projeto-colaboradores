@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
     <title>Colaborador RCS</title>
-    
 </head>
 <body>
     <div class="container">
@@ -19,9 +18,9 @@
             
             <ul class="sidebar-menu">
                 <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="{% url 'enc_colaboradores' %}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'enc_colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
                 <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
-                <li><a href=""  class="active"><i>👕</i> UNIFORMES </a></li>
+                <li><a href="" class="active"><i>👕</i> UNIFORMES </a></li>
                 <li><a href="{% url 'enc_ferias' %}"><i>🏖️</i> FÉRIAS </a></li>
             </ul>
             
@@ -63,196 +62,199 @@
                 
                 
                 <div class="collaborators-list">
-                    <!-- Exemplo de item de colaborador -->
-                     {% for funcionario in funcionarios%}
+                    <!-- Lista de colaboradores com uniformes -->
+                    {% for funcionario in funcionarios %}
                         <div class="collaborator-item">
-                            
                             <div class="collaborator-info">
-                                <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
-                                <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                                {% if uniforme%}
-                                    {% for uniforme in uniforme%}
-                                        <div class="collaborator-field"><strong>Calça:</strong>{{uniforme.calca}}</div>
-                                        <div class="collaborator-field"><strong>Blusa:</strong>{{uniforme.blusa}} </div>
-                                        <div class="collaborator-field"><strong>Sapato:</strong> {{uniforme.sapato}}</div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.galocha}}</div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> {{uniforme.calca}}</div>
-                                        
-                                    {%endfor%}
-                                {%else%}
-
+                                <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
+                                <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                                
+                                <!-- Uniformes do funcionário -->
+                                {% if funcionario.uniformes.all %}
+                                    {% for uniforme in funcionario.uniformes.all %}
+                                        <div class="collaborator-field"><strong>Calça:</strong> {{ uniforme.calca|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Blusa:</strong> {{ uniforme.blusa|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Sapato:</strong> {{ uniforme.sapato|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ uniforme.galocha|default:"-" }}</div>
+                                    {% endfor %}
+                                {% else %}
                                     <div class="collaborator-field"><em>Nenhum uniforme cadastrado</em></div>
-                                {%endif%} 
+                                {% endif %}
 
-                                {% if funcionario.setores%}
-                                <div class="collaborator-field"><strong>Setor:</strong> {{funcionario.setor.setor}}</div>
-                                {%else%}
-                                <div class="collaborator-field"><em>Nenhum setor cadastrado</em></div>
-                                {%endif%}
+                                <!-- Setor do funcionário -->
+                                {% if funcionario.setor %}
+                                    <div class="collaborator-field"><strong>Setor:</strong> {{ funcionario.setor.nome }}</div>
+                                {% else %}
+                                    <div class="collaborator-field"><em>Nenhum setor cadastrado</em></div>
+                                {% endif %}
                             </div>
                             <div class="collaborator-actions">
-                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.matricula_funcionario%}" class="card-btn">Adicioar</a>
-                                 <a href="" class="card-btn">Editar</a>
-                                 <a href="" class="card-btn">Excluir</a>
+                                <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
+                                {% if funcionario.uniformes.all %}
+                                    <a href="{% url 'editar_uniforme' pk=funcionario.uniformes.first.id %}" class="card-btn">Editar</a>
+                                {% endif %}
+                                <a href="" class="card-btn">Excluir</a>
                             </div>                        
                         </div>
-                    {% endfor%}
+                    {% empty %}
+                        <div class="collaborator-item">
+                            <div class="collaborator-info">
+                                <div class="collaborator-field"><em>Nenhum funcionário cadastrado</em></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
                 <!-- Seção de contagem de uniformes -->
                 <div class="uniform-count">
+                    <h3>Contagem de Uniformes</h3>
+                    <p><strong>Encarregada:</strong> Monica Martins de Oliveira Costa</p>
+                    <p><strong>Setores atendidos:</strong> CDT/DPI, DPG, DPI, DIMEQ, C-Biotech, INFRA, PROTOCOLO, ACE, CRAD, CAEP, PCTECH, CEAD, UNB/TV, CET, CDS, MULTIUSO 2</p>
                     
-    <h3>Contagem de Uniformes </h3>
-    <p><strong>Encarregada:</strong> Monica Martins de Oliveira Costa</p>
-    <p><strong>Setores atendidos:</strong> CDT/DPI, DPG, DPI, DIMEQ, C-Biotech, INFRA, PROTOCOLO, ACE, CRAD, CAEP, PCTECH, CEAD, UNB/TV, CET, CDS, MULTIUSO 2</p>
-    
-    <div class="tables-container">
-        <div class="uniform-category">
-            <h4>Blusas</h4>
-            <table class="uniform-table">
-                <!-- Conteúdo da tabela de blusas -->
-                 <tr>
-                                <th>Tamanho</th>
-                                <th>Quantidade</th>
-                                <th>Banherista</th>
-                            </tr>
+                    <div class="tables-container">
+                        <div class="uniform-category">
+                            <h4>Blusas</h4>
+                            <table class="uniform-table">
+                                <tr>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
+                                    <th>Banherista</th>
+                                </tr>
+                                <tr>
+                                    <td>EXTRA G</td>
+                                    <td>1</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td>5</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>G </td>
+                                    <td>3</td>
+                                    <td>BANHERISTA</td>
+                                </tr>
+                                <tr>
+                                    <td>GG</td>
+                                    <td>2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>4</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>M </td>
+                                    <td>3</td>
+                                    <td>BANHERISTA</td>
+                                </tr>
+                                <tr>
+                                    <td>P </td>
+                                    <td>2</td>
+                                    <td>BANHERISTA</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="uniform-category">
+                            <h4>Blusas de Frio</h4>
+                            <table class="uniform-table">
+                                <tr>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                                <tr>
+                                    <td>EXTRA G</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>8</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="tables-container">
+                        <div class="uniform-category">
+                            <h4>Calças</h4>
+                            <table class="uniform-table">
+                                <tr>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>GG</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>9</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="uniform-category">
+                            <h4>Sapatos</h4>
+                            <table class="uniform-table">
+                                <tr>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                                <tr>
+                                    <td>34</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>35</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>36</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>37</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>38</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>39</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>40</td>
+                                    <td>2</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="uniform-category">
+                        <h4>Uniformes da Encarregada</h4>
+                        <table class="uniform-table">
                             <tr>
-                                <td>EXTRA G</td>
-                                <td>1</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>G</td>
-                                <td>5</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>G </td>
-                                <td>3</td>
-                                <td>BANHERISTA</td>
-                            </tr>
-                            <tr>
-                                <td>GG</td>
-                                <td>2</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>M</td>
-                                <td>4</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>M </td>
-                                <td>3</td>
-                                <td>BANHERISTA</td>
-                            </tr>
-                            <tr>
-                                <td>P </td>
-                                <td>2</td>
-                                <td>BANHERISTA</td>
-                            </tr>
-            </table>
-        </div>
-        
-        <div class="uniform-category">
-            <h4>Blusas de Frio</h4>
-            <table class="uniform-table">
-                <!-- Conteúdo da tabela de blusas de frio -->
-                 <tr>
-                                <th>Tamanho</th>
-                                <th>Quantidade</th>
-                            </tr>
-                            <tr>
-                                <td>EXTRA G</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>P</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>G</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>M</td>
-                                <td>8</td>
-                            </tr>
-            </table>
-        </div>
-    </div>
-    
-    <div class="tables-container">
-        <div class="uniform-category">
-            <h4>Calças</h4>
-            <table class="uniform-table">
-                <!-- Conteúdo da tabela de calças -->
-                 <tr>
-                                <th>Tamanho</th>
-                                <th>Quantidade</th>
-                            </tr>
-                            <tr>
-                                <td>P</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>GG</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>G</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>M</td>
-                                <td>9</td>
-                            </tr>
-            </table>
-        </div>
-        
-        <div class="uniform-category">
-            <h4>Sapatos</h4>
-            <table class="uniform-table">
-                <!-- Conteúdo da tabela de sapatos -->
-                 <tr>
-                                <th>Tamanho</th>
-                                <th>Quantidade</th>
-                            </tr>
-                            <tr>
-                                <td>34</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>35</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>36</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>37</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>38</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>39</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>40</td>
-                                <td>2</td>
-                            </tr>
-            </table>
-        </div>
-    </div>
-    
-    <div class="uniform-category">
-        <h4>Uniformes da Encarregada</h4>
-        <table class="uniform-table">
-            <!-- Conteúdo da tabela da encarregada -->
-             <tr>
                                 <th>Item</th>
                                 <th>Tamanho</th>
                                 <th>Quantidade</th>
@@ -282,9 +284,10 @@
                                 <td>35</td>
                                 <td>1</td>
                             </tr>
-        </table>
-    </div>
-</div>
+                        </table>
+                    </div>
+                </div>
+            </div>
             
             <footer class="footer">
                 <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>

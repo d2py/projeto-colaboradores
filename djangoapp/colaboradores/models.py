@@ -71,7 +71,7 @@ class Uniformes(models.Model):
         MinValueValidator(34),
         MaxValueValidator(45)
     ],null=False, blank=False)
-    matricula_funcionario_id = models.OneToOneField(Funcionario,null=True,blank=False , on_delete=models.CASCADE, related_name='uniformes')
+    funcionario_uniforme = models.OneToOneField(Funcionario,null=True,blank=False , on_delete=models.CASCADE, related_name='uniformes')
 
 
 class Setores(models.Model):
@@ -83,7 +83,7 @@ class Setores(models.Model):
         self.setor = self.setor.upper()
         super().save(*args, **kwargs)
 
-    matricula_funcionario = models.ForeignKey(Funcionario,null=True,blank=True ,on_delete=models.SET_NULL,related_name='setores')
+    funcionario_setor = models.ForeignKey(Funcionario,null=True,blank=True ,on_delete=models.SET_NULL,related_name='setores')
     
     def __str__(self):
         return self.setor
