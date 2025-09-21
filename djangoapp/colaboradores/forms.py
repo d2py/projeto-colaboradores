@@ -10,7 +10,8 @@ class FuncionarioForm(forms.ModelForm):
             "matricula_funcionario",
             "nome_funcionario",
             "status",
-            "ferias"
+            "ferias",
+            
         ]
 
 

@@ -47,7 +47,21 @@ TAMANHO_CALCADO=(
     (45, "45")
 )
 
+class Setores(models.Model):
+    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
+        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+        'Apenas letras são permitido no nome.'
+    )])
+    def save(self, *args, **kwargs):
+        self.setor = self.setor.upper()
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.setor
+
+
 class Funcionario(models.Model):
+    setores = models.ManyToManyField(Setores, null=True,blank=True ,related_name='setores')
     matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
     nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
         r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
@@ -55,7 +69,7 @@ class Funcionario(models.Model):
     )])
     status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
     ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
-
+    
     def __str__(self):
         return self.nome_funcionario
 
@@ -71,19 +85,8 @@ class Uniformes(models.Model):
         MinValueValidator(34),
         MaxValueValidator(45)
     ],null=False, blank=False)
-    funcionario_uniforme = models.OneToOneField(Funcionario,null=True,blank=False , on_delete=models.CASCADE, related_name='uniformes')
-
-
-class Setores(models.Model):
-    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
-        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
-        'Apenas letras são permitido no nome.'
-    )])
-    def save(self, *args, **kwargs):
-        self.setor = self.setor.upper()
-        super().save(*args, **kwargs)
-
-    funcionario_setor = models.ForeignKey(Funcionario,null=True,blank=True ,on_delete=models.SET_NULL,related_name='setores')
+    funcionario = models.OneToOneField(Funcionario,null=True,blank=False , on_delete=models.CASCADE, related_name='uniformes')
     
-    def __str__(self):
-        return self.setor
+
+
+

@@ -58,10 +58,28 @@ def enc_setores(request):
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 def enc_uniformes(request):
-    funcionarios = Uniformes.objects.select_related('funcionario_uniforme').all()
+
+    try:
         
+        # Busca todos os funcionários com seus relacionamentos
+        funcionarios = Uniformes.objects.all()\
+            .select_related("funcionario")\
+            
         
-    return render(request, 'encarregada/enc_uniformes.html',{'funcionarios':funcionarios})
+        context = {
+            'funcionarios': funcionarios
+        }
+        return render(request, 'encarregada/enc_uniformes.html', context)
+    
+    except Exception as e:
+        print(f"Erro na query: {e}")
+        # Fallback: dados simples
+        funcionarios = Uniformes.objects.all().order_by('funcionario')
+        context = {
+            'funcionarios': funcionarios,
+            'erro': str(e)
+        }
+        return render(request, 'encarregada/enc_uniformes.html', context)
 
 
 def enc_ferias(request):

@@ -1,5 +1,5 @@
 
-from django.urls import path
+from django.urls import path, include
 from colaboradores.views import home, list_colaboradores, encarregadas, setores, uniformes,todos_uniformes, ferias, colabo_encarregadas, todos_setores, todas_ferias
 from colaboradores.views import enc_home,enc_colaboradores, enc_setores,enc_uniformes,enc_ferias
 
@@ -11,6 +11,7 @@ from colaboradores.views import entrada_funcionario, editar_funcionario, excluir
 app_colaboradores = 'colaboadores'
 
 urlpatterns = [
+    
     #colaboradores:base ## e para urls reverso (pesquisar o que e )
     path('home/',home, name='home'),
     path('colaboradores/',list_colaboradores, name='colaboradores'),

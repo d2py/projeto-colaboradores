@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,6 +9,7 @@
     <title>Colaborador RCS</title>
 </head>
 <body>
+    
     <div class="container">
         <!-- Barra lateral de navegação -->
         <aside class="sidebar">
@@ -59,28 +61,28 @@
                     <input type="text" placeholder="Pesquisar colaborador...">
                     <button>Pesquisar</button>
                 </div>
-                
+                 
                 
                 <div class="collaborators-list">
                     <!-- Lista de colaboradores com uniformes -->
                     {% for funcionario in funcionarios %}
+                    
                         <div class="collaborator-item">
                             <div class="collaborator-info">
-                                <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
-                                <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                               
+                                <div class="collaborator-field"><strong>Matrícula:</strong>{{funcionario.funcionario_id}} </div>
+                                <div class="collaborator-field"><strong>Nome:</strong>{{funcionario.funcionario_id}} </div>
                                 
                                 <!-- Uniformes do funcionário -->
-                                {% if funcionario.uniformes.all %}
-                                    {% for uniforme in funcionario.uniformes.all %}
-                                        <div class="collaborator-field"><strong>Calça:</strong> {{ uniforme.calca|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Blusa:</strong> {{ uniforme.blusa|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Sapato:</strong> {{ uniforme.sapato|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ uniforme.galocha|default:"-" }}</div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="collaborator-field"><em>Nenhum uniforme cadastrado</em></div>
-                                {% endif %}
-
+                                
+                                    {%if funcionario %}
+                                        <div class="collaborator-field"><strong>Calça:</strong> {{ funcionario.calca|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Blusa:</strong> {{ funcionario.blusa|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.sapato|default:"-" }}</div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.galocha|default:"-" }}</div>
+                                    {%endif%}
+                                
+                            
                                 <!-- Setor do funcionário -->
                                 {% if funcionario.setor %}
                                     <div class="collaborator-field"><strong>Setor:</strong> {{ funcionario.setor.nome }}</div>
@@ -90,7 +92,7 @@
                             </div>
                             <div class="collaborator-actions">
                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
-                                {% if funcionario.uniformes.all %}
+                                {% if colaboradoes.uniformes.all %}
                                     <a href="{% url 'editar_uniforme' pk=funcionario.uniformes.first.id %}" class="card-btn">Editar</a>
                                 {% endif %}
                                 <a href="" class="card-btn">Excluir</a>
