@@ -62,19 +62,20 @@ def enc_uniformes(request):
     try:
         
         # Busca todos os funcionários com seus relacionamentos
-        funcionarios = Uniformes.objects.all()\
-            .select_related("funcionario")\
-            
+        funcionarios = Funcionario.objects.first()
         
+        uni = funcionarios.uniformes.all()
+
         context = {
-            'funcionarios': funcionarios
+            'funcionarios': funcionarios,
+            
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
     
     except Exception as e:
         print(f"Erro na query: {e}")
         # Fallback: dados simples
-        funcionarios = Uniformes.objects.all().order_by('funcionario')
+        funcionarios = Funcionario.objects.all()
         context = {
             'funcionarios': funcionarios,
             'erro': str(e)

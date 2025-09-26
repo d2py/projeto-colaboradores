@@ -70,17 +70,18 @@
                         <div class="collaborator-item">
                             <div class="collaborator-info">
                                
-                                <div class="collaborator-field"><strong>Matrícula:</strong>{{funcionario.funcionario_id}} </div>
-                                <div class="collaborator-field"><strong>Nome:</strong>{{funcionario.funcionario_id}} </div>
+                                <div class="collaborator-field"><strong>Matrícula:</strong>{{funcionario.matricula_funcionario}} </div>
+                                <div class="collaborator-field"><strong>Nome:</strong>{{funcionario.nome_funcionario}} </div>
                                 
                                 <!-- Uniformes do funcionário -->
                                 
-                                    {%if funcionario %}
-                                        <div class="collaborator-field"><strong>Calça:</strong> {{ funcionario.calca|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Blusa:</strong> {{ funcionario.blusa|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.sapato|default:"-" }}</div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.galocha|default:"-" }}</div>
-                                    {%endif%}
+                                    {%for uniforme in funcionario.uniforme.all%}
+                                        
+                                        <div class="collaborator-field"><strong>Calça:</strong> {{uniforme.calca}}</div>
+                                        <div class="collaborator-field"><strong>Blusa:</strong> </div>
+                                        <div class="collaborator-field"><strong>Sapato:</strong> </div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> </div>
+                                    {%endfor%}
                                 
                             
                                 <!-- Setor do funcionário -->
@@ -93,7 +94,7 @@
                             <div class="collaborator-actions">
                                 <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
                                 {% if colaboradoes.uniformes.all %}
-                                    <a href="{% url 'editar_uniforme' pk=funcionario.uniformes.first.id %}" class="card-btn">Editar</a>
+                                    <a href="" class="card-btn">Editar</a>
                                 {% endif %}
                                 <a href="" class="card-btn">Excluir</a>
                             </div>                        
