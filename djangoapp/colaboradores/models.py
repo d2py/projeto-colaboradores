@@ -47,22 +47,23 @@ TAMANHO_CALCADO=(
     (45, "45")
 )
 
-class Setores(models.Model):
-    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
-        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+
+    
+
+class Funcionario(models.Model):
+    matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
+    nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
+        r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'
     )])
-    def save(self, *args, **kwargs):
-        self.setor = self.setor.upper()
-        super().save(*args, **kwargs)
+    status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
+    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
     
-    def __str__(self):
-        return self.setor
-
 
 
 
 class Uniformes(models.Model):
+    funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniformes')
     calca = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Calça", null=False, blank=False)
     blusa = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa", null=False, blank=False)
     blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa de Frio", null=False, blank=False)
@@ -77,20 +78,19 @@ class Uniformes(models.Model):
        
 
 
-
-class Funcionario(models.Model):
-    
-    matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
-    nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
-        r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+class Setores(models.Model):
+    funcionario = models.ManyToManyField(Funcionario, null=True,blank=True ,related_name='setores')
+    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
+        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'
     )])
-    status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
-    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
-    setores = models.ManyToManyField(Setores, null=True,blank=True ,related_name='setores')
-    uniforme = models.OneToOneField(Uniformes,null=True,blank=True , on_delete=models.CASCADE, related_name='uniformes')
-
+    def save(self, *args, **kwargs):
+        self.setor = self.setor.upper()
+        super().save(*args, **kwargs)
+    
     def __str__(self):
-        return f"{self.uniforme.calca} - {self.uniforme.blusa_frio}" # pyright: ignore[reportOptionalMemberAccess]
+        return self.setor
+
+
 
     

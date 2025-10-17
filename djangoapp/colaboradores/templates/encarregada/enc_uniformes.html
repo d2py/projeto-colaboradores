@@ -75,15 +75,17 @@
                                 
                                 <!-- Uniformes do funcionário -->
                                 
-                                    {%for uniforme in funcionario.uniforme.all%}
-                                        
-                                        <div class="collaborator-field"><strong>Calça:</strong> {{uniforme.calca}}</div>
-                                        <div class="collaborator-field"><strong>Blusa:</strong> </div>
-                                        <div class="collaborator-field"><strong>Sapato:</strong> </div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> </div>
-                                    {%endfor%}
+                                    
+                                    {% if funcionario.uniformes%}
+                                        <div class="collaborator-field"><strong>Calça:</strong>{{funcionario.uniformes.calca}} </div>
+                                        <div class="collaborator-field"><strong>Blusa:</strong>{{funcionario.uniformes.calca}} </div>
+                                        <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.uniformes.calca|default:"—" }} </div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniformes.calca|default:"—" }} </div>
+                                    {% else %}
+                                        <div class="collaborator-field"><em>Uniforme não cadastrado.</em></div>   
+                                    {%endif%}
                                 
-                            
+                                
                                 <!-- Setor do funcionário -->
                                 {% if funcionario.setor %}
                                     <div class="collaborator-field"><strong>Setor:</strong> {{ funcionario.setor.nome }}</div>

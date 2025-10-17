@@ -1,3 +1,4 @@
+from itertools import chain
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404,render, redirect
@@ -62,13 +63,10 @@ def enc_uniformes(request):
     try:
         
         # Busca todos os funcionários com seus relacionamentos
-        funcionarios = Funcionario.objects.first()
+        funcionarios = Funcionario.objects.select_related('uniformes').all()      
         
-        uni = funcionarios.uniformes.all()
-
         context = {
-            'funcionarios': funcionarios,
-            
+            'funcionarios': funcionarios, 
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
     
@@ -122,7 +120,7 @@ def registrar_uniforme(request, pk):
     if request.method == "POST":
         if form.is_valid():
             uniforme = form.save(commit=False)
-            uniforme.matricula_funcionario = funcionario  # atribui o objeto
+            uniforme.funcionario = funcionario  # atribui o objeto
             uniforme.save()
             return redirect('enc_uniformes')
     else:
