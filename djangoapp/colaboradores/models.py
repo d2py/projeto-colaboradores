@@ -79,7 +79,8 @@ class Uniformes(models.Model):
 
 
 class Setores(models.Model):
-    funcionario = models.ManyToManyField(Funcionario, null=True,blank=True ,related_name='setores')
+    funcionario = models.ManyToManyField(Funcionario
+                                         , null=True,blank=True ,related_name='setores')
     setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
         r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'

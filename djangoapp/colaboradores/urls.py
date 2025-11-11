@@ -4,7 +4,7 @@ from colaboradores.views import home, list_colaboradores, encarregadas, setores,
 from colaboradores.views import enc_home,enc_colaboradores, enc_setores,enc_uniformes,enc_ferias
 
 #Edicao de Funcionario/exclusão/Adicionar
-from colaboradores.views import entrada_funcionario, editar_funcionario, excluir_funcionario, registrar_setor, editar_setor, registrar_uniforme
+from colaboradores.views import entrada_funcionario, editar_funcionario, excluir_funcionario, registrar_setor,setor_colaborador, editar_setor, registrar_uniforme
 
  
 
@@ -33,11 +33,13 @@ urlpatterns = [
     #Formulario 
     path('entrada/funcionario/',entrada_funcionario, name="entrada_funcionario" ),
     path('adicionar/setor/',registrar_setor, name="registrar_setor" ),
+    path('adcionar/setor/funcionario/',setor_colaborador, name='setor_colaborador'),
     path('adicionar/uniforme/<int:pk>',registrar_uniforme, name="adicionar_uniforme" ),
-    # Edicao
+    # Edicionar
     path('editar/funcionario/<int:pk>', editar_funcionario, name="editar_funcionario"),
     path('excluir/funcionario/<int:pk>', excluir_funcionario, name="excluir_funcionario"),
     path('editar/setor/<int:pk>', editar_setor, name="editar_setor"),
+    
 
 ]
 

@@ -50,16 +50,30 @@ def enc_home(request):
 
 
 def enc_colaboradores(request):
-    colaboradores = Funcionario.objects.all()
-    return render(request, 'encarregada/enc_colaboradores.html', {'colaboradores': colaboradores})
+    funcionarios = Funcionario.objects.all()
+    context = {
+        'funcionarios': funcionarios
+    }
+    return render(request, 'encarregada/enc_colaboradores.html',context)
 
 
 def enc_setores(request):
     setores = Setores.objects.all().order_by('setor')
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
-def enc_uniformes(request):
 
+def setor_colaborador(request):
+    setores = Setores.objects.all()
+    context = {
+        'setores': setores
+    }
+    return render(request, 'encarregada/setor_colaborador.html',context)
+
+
+
+        
+
+def enc_uniformes(request):
     try:
         
         # Busca todos os funcionários com seus relacionamentos

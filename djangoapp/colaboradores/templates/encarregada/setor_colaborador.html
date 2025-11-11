@@ -21,12 +21,7 @@
             </div>
             
             <ul class="sidebar-menu">
-                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="" class="active" ><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
-                <li><a href="{% url 'enc_uniformes' %}"><i>👕</i> UNIFORMES </a></li>
-                <li><a href="{% url 'enc_ferias'%}"><i>🏖️</i> FÉRIAS </a></li>
-                
+                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>                
             </ul>
             
             <div class="sidebar-credits">
@@ -53,29 +48,18 @@
                 
                 
 
-                {% for funcionario in funcionarios %}
+                {% for setor in setores %}
                 
                 <div class="collaborators-list">
                     <!-- Exemplo de item de colaborador -->
                     
                     <div class="collaborator-item">
                         <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                            <div class="collaborator-field"><strong>Banheirista:</strong> {{funcionario.status}}</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> {{funcionario.ferias}}</div>
-                            <div class="collaborator-field"><strong>Setor:</strong>{{funcionario.setores.setor}} </div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <a href="{% url 'setor_colaborador' %}" class="btn btn-edit">Adicionar Setor</a>
-                            <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-edit">Editar</a>
-                            <a href="{% url 'excluir_funcionario' funcionario.pk %}" class="btn btn-delete" >Excluir</a>
+                            <div class="collaborator-field"><strong>Setor:</strong> {{setor.setor}}</div>
+                            <a href="{% url 'setor_colaborador' %}" class="btn btn-edit">Adicionar Colaborador</a>
                         </div>
                     </div>
-                </div>
-                {% empty %}
-                    <div class="setor-item">Nenhum funcionario cadastrado</div>
-                        
+                </div>  
                 {% endfor%}
 
             </div>
