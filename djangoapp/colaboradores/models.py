@@ -48,9 +48,11 @@ TAMANHO_CALCADO=(
 )
 
 
+
     
 
 class Funcionario(models.Model):
+    
     matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
     nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
         r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
@@ -80,7 +82,7 @@ class Uniformes(models.Model):
 
 class Setores(models.Model):
     funcionario = models.ManyToManyField(Funcionario
-                                         , null=True,blank=True ,related_name='setores')
+                                         , null=True,blank=True ,related_name='funcionario')
     setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
         r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'
@@ -91,7 +93,6 @@ class Setores(models.Model):
     
     def __str__(self):
         return self.setor
-
 
 
     

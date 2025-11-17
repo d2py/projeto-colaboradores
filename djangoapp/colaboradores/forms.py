@@ -19,7 +19,8 @@ class SetorForm(forms.ModelForm):
     class Meta:
         model = Setores
         fields=[
-            "setor"
+            "setor",
+            
         ]
 
 class UniformeForm(forms.ModelForm):

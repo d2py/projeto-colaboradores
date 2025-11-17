@@ -8,7 +8,65 @@
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
     <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
     <title>Colaborador RCS</title>
-    
+    <style>
+        /* Estilos para a lista suspensa */
+        .collaborator-actions select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .collaborator-actions select:hover {
+            border-color: #007bff;
+        }
+
+        .collaborator-actions select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .collaborator-actions select option {
+            padding: 8px 12px;
+            background-color: white;
+            color: #333;
+        }
+
+        .collaborator-actions select option:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Estilo para quando estiver desabilitado */
+        .collaborator-actions select:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Container da lista suspensa */
+        .select-container {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .select-container::after {
+            content: "▼";
+            font-size: 12px;
+            color: #666;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,7 +79,9 @@
             </div>
             
             <ul class="sidebar-menu">
-                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>                
+                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'enc_colaboradores'%}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'enc_setores' %}" class="active"><i>🏢</i> SETORES </a></li>                
             </ul>
             
             <div class="sidebar-credits">
@@ -46,21 +106,42 @@
                     <button>Pesquisar</button>
                 </div>
                 
+                {% for funcionario in funcionarios %}
+                    <div class="collaborators-list">
+                        
+                        <div class="collaborator-item">
+                            <div class="collaborator-info">
+                                <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+                            </div>
+                            <div class="collaborator-actions">
+    <div class="select-container">
+        <select class="setor-select" name="setor_{{ funcionario.id }}">
+            <option value="">Selecione um setor</option>
+            {% for setor in setor %}
+                <option value="{{ setor.id }}" 
+                    {% if setor in  setor %}selected{% endif %}>
+                    {{ setor.setor }}
+                </option>
                 
+            {% empty %}
+                <option value="" disabled>Nenhum setor cadastrado</option>
+            {% endfor %}
 
-                {% for setor in setores %}
-                
-                <div class="collaborators-list">
-                    <!-- Exemplo de item de colaborador -->
-                    
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Setor:</strong> {{setor.setor}}</div>
-                            <a href="{% url 'setor_colaborador' %}" class="btn btn-edit">Adicionar Colaborador</a>
+        </select>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save me-1"></i>Salvar
+        </button>
+        
+    </div>
+</div>
                         </div>
+                        
                     </div>
-                </div>  
-                {% endfor%}
+                    
+                {% empty %}
+                    <div class="setor-item">Nenhum funcionario cadastrado</div>
+                {% endfor %}
 
             </div>
             
@@ -69,5 +150,7 @@
             </footer>
         </main>
     </div>
+
+    
 </body>
 </html>

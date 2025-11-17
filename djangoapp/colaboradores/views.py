@@ -63,13 +63,15 @@ def enc_setores(request):
 
 
 def setor_colaborador(request):
-    setores = Setores.objects.all()
+    funcionario = Funcionario.objects.all()
+    setor = Setores.objects.all()
+    
+
     context = {
-        'setores': setores
+        'funcionarios': funcionario,
+        'setor':setor
     }
     return render(request, 'encarregada/setor_colaborador.html',context)
-
-
 
         
 
@@ -128,7 +130,8 @@ def registrar_setor(request):
 
 
 def registrar_uniforme(request, pk):
-    funcionario = Funcionario.objects.get(pk=pk)  # busca o funcionário
+    funcionario = Funcionario.objects.get(pk=pk) 
+      # busca o funcionário
     form = UniformeForm(request.POST or None)
     
     if request.method == "POST":
