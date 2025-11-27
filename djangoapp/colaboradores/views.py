@@ -58,8 +58,15 @@ def enc_colaboradores(request):
 
 
 def enc_setores(request):
+    funcionarios = Funcionario.objects.all()
     setores = Setor.objects.all().order_by('nome')
-    return render(request, 'encarregada/enc_setores.html',{'setores':setores})
+    context = {
+        'funcionarios': funcionarios,
+        'setores':setores,
+    }
+    
+
+    return render(request, 'encarregada/enc_setores.html',context)
 
 
 def associar_setor_colaborador(request, pk):
