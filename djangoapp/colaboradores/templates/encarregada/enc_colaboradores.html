@@ -67,7 +67,7 @@
                             <div class="collaborator-field"><strong>Setor:</strong>{{funcionario.setores.setor}} </div>
                         </div>
                         <div class="collaborator-actions">
-                            <a href="{% url 'setor_colaborador' %}" class="btn btn-edit">Adicionar Setor</a>
+                            <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Adicionar Setor</a>
                             <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-edit">Editar</a>
                             <a href="{% url 'excluir_funcionario' funcionario.pk %}" class="btn btn-delete" >Excluir</a>
                         </div>

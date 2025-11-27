@@ -63,9 +63,9 @@
                     <div class="setores-grid">
                         <!-- Setores renderizados diretamente em 6 colunas -->
                         {% for setor in setores %}
-                        <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{ setor.setor }}</a></div>
+                            <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{setor.nome }}</a></div>
                         {% empty %}
-                        <div class="setor-item">Nenhum setor cadastrado</div>
+                            <div class="setor-item">Nenhum setor cadastrado</div>
                         {% endfor %}
                     </div>
                 </div>

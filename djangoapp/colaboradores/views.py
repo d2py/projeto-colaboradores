@@ -5,9 +5,9 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
 # Create your views here.
-from colaboradores.models import Funcionario, Setores, Uniformes
+from colaboradores.models import Funcionario, Setor, Uniforme
 # Formulario
-from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm
+from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm, AsssociarSetoresForm
 
 
 
@@ -58,18 +58,27 @@ def enc_colaboradores(request):
 
 
 def enc_setores(request):
-    setores = Setores.objects.all().order_by('setor')
+    setores = Setor.objects.all().order_by('nome')
     return render(request, 'encarregada/enc_setores.html',{'setores':setores})
 
 
-def setor_colaborador(request):
-    funcionario = Funcionario.objects.all()
-    setor = Setores.objects.all()
+def associar_setor_colaborador(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)
     
-
+    if request.method == "POST":
+        form = AsssociarSetoresForm(request.POST)
+        if form.is_valid():
+            setores_selecionados = form.cleaned_data['setores']
+            funcionario.setores.set(setores_selecionados) 
+            return redirect('enc_home')
+    else:
+        # Preenche com os setores já associados
+        form = AsssociarSetoresForm(initial={
+            'setores': funcionario.setores.all()
+        })    
     context = {
-        'funcionarios': funcionario,
-        'setor':setor
+        'funcionario': funcionario,
+        'form':form
     }
     return render(request, 'encarregada/setor_colaborador.html',context)
 
@@ -160,7 +169,7 @@ def editar_funcionario(request, pk):
     return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
 
 def editar_setor(request, pk):
-    setor = get_object_or_404(Setores, pk=pk)
+    setor = get_object_or_404(Setor, pk=pk)
     if request.method == "POST":
         form = SetorForm(request.POST, instance=setor)
         if form.is_valid():

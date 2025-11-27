@@ -47,13 +47,23 @@ TAMANHO_CALCADO=(
     (45, "45")
 )
 
-
+class Setor(models.Model):
+    nome = models.CharField(max_length=40, verbose_name='nome',null=False, unique=True,   validators=[ RegexValidator(
+        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+        'Apenas letras são permitido no nome.'
+    )])
+    def save(self, *args, **kwargs):
+        self.nome = self.nome.upper()
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.nome
 
     
 
 class Funcionario(models.Model):
-    
-    matricula_funcionario = models.PositiveIntegerField(primary_key=True, max_length=6)
+    setores = models.ManyToManyField(Setor, null=True,blank=True ,related_name='funcionarios')
+    matricula_funcionario = models.PositiveIntegerField(primary_key=True)
     nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
         r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
         'Apenas letras são permitido no nome.'
@@ -64,8 +74,8 @@ class Funcionario(models.Model):
 
 
 
-class Uniformes(models.Model):
-    funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniformes')
+class Uniforme(models.Model):
+    funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniforme')
     calca = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Calça", null=False, blank=False)
     blusa = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa", null=False, blank=False)
     blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa de Frio", null=False, blank=False)
@@ -80,19 +90,7 @@ class Uniformes(models.Model):
        
 
 
-class Setores(models.Model):
-    funcionario = models.ManyToManyField(Funcionario
-                                         , null=True,blank=True ,related_name='funcionario')
-    setor = models.CharField(max_length=40, verbose_name='Setores',null=False, unique=True,   validators=[ RegexValidator(
-        r'^[a-zA-Z0-9áàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
-        'Apenas letras são permitido no nome.'
-    )])
-    def save(self, *args, **kwargs):
-        self.setor = self.setor.upper()
-        super().save(*args, **kwargs)
-    
-    def __str__(self):
-        return self.setor
+
 
 
     
