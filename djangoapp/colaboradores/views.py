@@ -50,7 +50,7 @@ def enc_home(request):
 
 
 def enc_colaboradores(request):
-    funcionarios = Funcionario.objects.all()
+    funcionarios = Funcionario.objects.prefetch_related('setores').all()
     context = {
         'funcionarios': funcionarios
     }
@@ -58,7 +58,7 @@ def enc_colaboradores(request):
 
 
 def enc_setores(request):
-    funcionarios = Funcionario.objects.all()
+    funcionarios = Funcionario.objects.prefetch_related('setores').all()
     setores = Setor.objects.all().order_by('nome')
     context = {
         'funcionarios': funcionarios,
@@ -71,7 +71,6 @@ def enc_setores(request):
 
 def associar_setor_colaborador(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
-    
     if request.method == "POST":
         form = AsssociarSetoresForm(request.POST)
         if form.is_valid():

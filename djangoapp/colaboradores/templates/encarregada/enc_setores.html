@@ -80,8 +80,18 @@
                         <div class="collaborator-info">
                             
                             <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                            <div class="collaborator-field"><strong>Setor:</strong>{{funcionario.setores.setor}} </div>
-                        </div>
+                               
+                                <div class="collaborator-field"><strong>Setores:</strong>
+                            {%if funcionario.setores.all %}         
+                                    {% for setores in funcionario.setores.all%}
+                                        {{setores.nome}}{%if not forloop.last%} /{%endif%}
+                                    {%endfor%}
+                            {%else%}
+                                <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
+                            {%endif%}        
+                                </div>
+                                
+                            </div>
                         <div class="collaborator-actions">
                             <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Adicionar funcionario ao Setor</a>
                             <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Editar</a>
