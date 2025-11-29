@@ -1,12 +1,13 @@
+from itertools import chain
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
 # Create your views here.
-from colaboradores.models import Funcionario, Setores, Uniformes
+from colaboradores.models import Funcionario, Setor, Uniforme
 # Formulario
-from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm
+from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm, AsssociarSetoresForm
 
 
 
@@ -49,26 +50,54 @@ def enc_home(request):
 
 
 def enc_colaboradores(request):
-    colaboradores = Funcionario.objects.all()
-    return render(request, 'encarregada/enc_colaboradores.html', {'colaboradores': colaboradores})
+    funcionarios = Funcionario.objects.prefetch_related('setores').all()
+    context = {
+        'funcionarios': funcionarios
+    }
+    return render(request, 'encarregada/enc_colaboradores.html',context)
 
 
 def enc_setores(request):
-    setores = Setores.objects.all().order_by('setor')
-    return render(request, 'encarregada/enc_setores.html',{'setores':setores})
+    funcionarios = Funcionario.objects.prefetch_related('setores').all()
+    setores = Setor.objects.all().order_by('nome')
+    context = {
+        'funcionarios': funcionarios,
+        'setores':setores,
+    }
+    
+
+    return render(request, 'encarregada/enc_setores.html',context)
+
+
+def associar_setor_colaborador(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)
+    if request.method == "POST":
+        form = AsssociarSetoresForm(request.POST)
+        if form.is_valid():
+            setores_selecionados = form.cleaned_data['setores']
+            funcionario.setores.set(setores_selecionados) 
+            return redirect('enc_home')
+    else:
+        # Preenche com os setores já associados
+        form = AsssociarSetoresForm(initial={
+            'setores': funcionario.setores.all()
+        })    
+    context = {
+        'funcionario': funcionario,
+        'form':form
+    }
+    return render(request, 'encarregada/setor_colaborador.html',context)
+
+        
 
 def enc_uniformes(request):
-
     try:
         
         # Busca todos os funcionários com seus relacionamentos
-        funcionarios = Funcionario.objects.first()
+        funcionarios = Funcionario.objects.select_related('uniformes').all()      
         
-        uni = funcionarios.uniformes.all()
-
         context = {
-            'funcionarios': funcionarios,
-            
+            'funcionarios': funcionarios, 
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
     
@@ -116,13 +145,14 @@ def registrar_setor(request):
 
 
 def registrar_uniforme(request, pk):
-    funcionario = Funcionario.objects.get(pk=pk)  # busca o funcionário
+    funcionario = Funcionario.objects.get(pk=pk) 
+      # busca o funcionário
     form = UniformeForm(request.POST or None)
     
     if request.method == "POST":
         if form.is_valid():
             uniforme = form.save(commit=False)
-            uniforme.matricula_funcionario = funcionario  # atribui o objeto
+            uniforme.funcionario = funcionario  # atribui o objeto
             uniforme.save()
             return redirect('enc_uniformes')
     else:
@@ -145,7 +175,7 @@ def editar_funcionario(request, pk):
     return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
 
 def editar_setor(request, pk):
-    setor = get_object_or_404(Setores, pk=pk)
+    setor = get_object_or_404(Setor, pk=pk)
     if request.method == "POST":
         form = SetorForm(request.POST, instance=setor)
         if form.is_valid():
@@ -167,5 +197,4 @@ def excluir_funcionario(request, pk):
         return redirect('enc_colaboradores')
     else:
         return render(request, 'edicao/excluir_funcionario.html', {'funcionario':funcionario})
-
   

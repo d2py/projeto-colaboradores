@@ -53,26 +53,39 @@
                 
                 
 
-                {% for colaboradores in colaboradores %}
+                {% for funcionario in funcionarios %}
                 
-                <div class="collaborators-list">
-                    <!-- Exemplo de item de colaborador -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> {{colaboradores.matricula_funcionario}}</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> {{colaboradores.nome_funcionario}}</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> </div>
-                            <div class="collaborator-field"><strong>Banheirista:</strong> {{colaboradores.status}}</div>
-                            <div class="collaborator-field"><strong>Ferias:</strong> {{colaboradores.ferias}}</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <a href="{% url 'editar_funcionario' colaboradores.pk %}" class="btn btn-edit">Editar</a>
-                            <a href="{% url 'excluir_funcionario' colaboradores.pk %}" class="btn btn-delete" >Excluir</a>
+                    <div class="collaborators-list">
+                        <!-- Exemplo de item de colaborador -->
+                        
+                        <div class="collaborator-item">
+                            <div class="collaborator-info">
+                                <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Banheirista:</strong> {{funcionario.status}}</div>
+                                <div class="collaborator-field"><strong>Ferias:</strong> {{funcionario.ferias}}</div>
+                                <div class="collaborator-field"><strong>Setor:</strong> 
+                                {%if funcionario.setores.all %}         
+                                    {% for setores in funcionario.setores.all%}
+                                        {{setores.nome}}{%if not forloop.last%} /{%endif%}
+                                    {%endfor%}
+                            {%else%}
+                                <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
+                            {%endif%}  
+                                
+                                
+                                </div>
+                            </div>
+                            <div class="collaborator-actions">
+                                
+                                <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-edit">Editar</a>
+                                <a href="{% url 'excluir_funcionario' funcionario.pk %}" class="btn btn-delete" >Excluir</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% empty %}
-                        <div class="setor-item">Nenhum funcionario cadastrado</div>
+                    <div class="setor-item">Nenhum funcionario cadastrado</div>
+                        
                 {% endfor%}
 
             </div>

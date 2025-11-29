@@ -63,14 +63,51 @@
                     <div class="setores-grid">
                         <!-- Setores renderizados diretamente em 6 colunas -->
                         {% for setor in setores %}
-                        <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{ setor.setor }}</a></div>
+                            <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{setor.nome }}</a></div>
                         {% empty %}
-                        <div class="setor-item">Nenhum setor cadastrado</div>
+                            <div class="setor-item">Nenhum setor cadastrado</div>
                         {% endfor %}
                     </div>
                 </div>
+                
             </div>
-            
+            {% for funcionario in funcionarios %}
+                
+                <div class="collaborators-list">
+                    <!-- Exemplo de item de colaborador -->
+                    
+                    <div class="collaborator-item">
+                        <div class="collaborator-info">
+                            
+                            <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+                               
+                                <div class="collaborator-field"><strong>Setores:</strong>
+                            {%if funcionario.setores.all %}         
+                                    {% for setores in funcionario.setores.all%}
+                                        {{setores.nome}}{%if not forloop.last%} /{%endif%}
+                                    {%endfor%}
+                            {%else%}
+                                <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
+                            {%endif%}        
+                                </div>
+                                
+                            </div>
+                        <div class="collaborator-actions">
+                            {%if funcionario.setores.all %}
+                            
+                                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Editar</a>
+                            {% elif not funcionario.setores.all %}
+                                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Adicionar funcionario ao Setor</a>
+                            {%else%}
+                                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">ir para Adicionar</a>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                    <div class="setor-item">Nenhum funcionario cadastrado</div>
+                        
+            {% endfor%}
             <footer class="footer">
                 <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
             </footer>

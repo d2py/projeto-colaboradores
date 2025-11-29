@@ -1,0 +1,198 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
+    <title>Colaborador RCS</title>
+    <style>
+        /* Estilos para a lista suspensa */
+        .collaborator-actions select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .collaborator-actions select:hover {
+            border-color: #007bff;
+        }
+
+        .collaborator-actions select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .collaborator-actions select option {
+            padding: 8px 12px;
+            background-color: white;
+            color: #333;
+        }
+
+        .collaborator-actions select option:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Estilo para quando estiver desabilitado */
+        .collaborator-actions select:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Container da lista suspensa */
+        .select-container {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .select-container::after {
+            content: "▼";
+            font-size: 12px;
+            color: #666;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Barra lateral de navegação -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>COLABORADORES</h2>
+                <p>RCS</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
+                <li><a href="{% url 'enc_colaboradores'%}" ><i>👥</i> COLABORADORES</a></li>
+                <li><a href="{% url 'enc_setores' %}" class="active"><i>🏢</i> SETORES </a></li>                
+            </ul>
+            
+            <div class="sidebar-credits">
+                DESENVOLVIDO POR DIEGO
+            </div>
+        </aside>
+        
+        <!-- Conteúdo principal -->
+        
+        <main class="main-content">
+            <div class="content-wrapper">
+                <header class="header">
+                    <h2>Lista de Colaboradores</h2>
+                    <div class="user-info">
+                        <span>Usuário: Admin</span>
+                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
+                    </div>
+                </header>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar colaborador...">
+                    <button>Pesquisar</button>
+                </div>
+                
+                
+                    <div class="collaborators-list">
+                        
+                        <div class="collaborator-item">
+                            <div class="collaborator-info">
+                                <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
+                                <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+                            </div>
+                            <div class="collaborator-actions">
+    
+                            </div>
+                        </div>
+                        <div class="select-container">
+                            <form method="post" id="setores-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="checkbox-header">
+            <label>Selecione os Setores:</label>
+            <span id="selected-count" class="selected-count">{{ form.initial.setores.count }} selecionados</span>
+        </div>
+        <div class="checkbox-list">
+            {% for checkbox in form.setores %}
+            <div class="checkbox-item">
+                {{ checkbox.tag }}
+                <label for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+            </div>
+            {% empty %}
+            <div style="text-align: center; color: #999; padding: 20px;">
+                Nenhum setor cadastrado. 
+                <a href="{% url 'funcionarios:criar_setor' %}">Criar primeiro setor</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <h3>Setores Atuais:</h3>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
+            {% for setor in funcionario.setores.all %}
+                <span style="background: #e3f2fd; padding: 6px 12px; border-radius: 4px; margin: 4px; display: inline-block;">
+                    ✅ {{ setor.nome }}
+                </span>
+            {% empty %}
+                <span style="color: #999;">Nenhum setor atribuído</span>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Salvar Associação</button>
+    <a href="{% url 'enc_setores' %}" class="btn">Voltar</a>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('input[name="setores"]');
+        const selectedCount = document.getElementById('selected-count');
+        
+        function updateSelectedCount() {
+            const selected = document.querySelectorAll('input[name="setores"]:checked').length;
+            selectedCount.textContent = selected + ' selecionado' + (selected !== 1 ? 's' : '');
+        }
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedCount);
+        });
+        
+        // Contagem inicial
+        updateSelectedCount();
+    });
+</script>
+        
+                        </div>
+                        
+                    </div>
+                    
+                
+
+            </div>
+            
+            <footer class="footer">
+                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
+            </footer>
+        </main>
+    </div>
+
+    
+</body>
+</html>

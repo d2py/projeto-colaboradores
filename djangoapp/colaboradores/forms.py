@@ -1,6 +1,6 @@
 from django import  forms 
 
-from colaboradores.models import Funcionario, Setores, Uniformes
+from colaboradores.models import Funcionario, Setor, Uniforme
 
 
 class FuncionarioForm(forms.ModelForm):
@@ -17,14 +17,15 @@ class FuncionarioForm(forms.ModelForm):
 
 class SetorForm(forms.ModelForm):
     class Meta:
-        model = Setores
+        model = Setor
         fields=[
-            "setor"
+            "nome",
+            
         ]
 
 class UniformeForm(forms.ModelForm):
     class Meta:
-        model = Uniformes
+        model = Uniforme
         fields=[
             
             "calca",
@@ -34,3 +35,7 @@ class UniformeForm(forms.ModelForm):
             "galocha",
             
         ]
+
+
+class AsssociarSetoresForm(forms.Form):
+    setores = forms.ModelMultipleChoiceField(queryset=Setor.objects.all(), widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-setores'}), required=False, label="Setores")
