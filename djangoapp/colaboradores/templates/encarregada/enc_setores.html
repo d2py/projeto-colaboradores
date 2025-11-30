@@ -71,6 +71,29 @@
                 </div>
                 
             </div>
+    <div class="search-bar card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    {{ filter.form|crispy}}
+                </div>
+                <div class="col-md-3">
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button class="btn btn-primary me-md-2" type="submit">
+                            <i class="fas fa-search me-1"></i>Pesquisar
+                        </button>
+                        <a href="{% url 'enc_setores' %}" class="btn btn-edit">
+                            <i class="fas fa-times me-1"></i>Limpar Filtro
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+            
+
+
+
             {% for funcionario in funcionarios %}
                 
                 <div class="collaborators-list">
@@ -78,20 +101,20 @@
                     
                     <div class="collaborator-item">
                         <div class="collaborator-info">
-                            
+                            <div class="collaborator-field"><strong>Matrícula:</strong>{{funcionario.matricula_funcionario}} </div>
                             <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
                                
-                                <div class="collaborator-field"><strong>Setores:</strong>
-                            {%if funcionario.setores.all %}         
-                                    {% for setores in funcionario.setores.all%}
-                                        {{setores.nome}}{%if not forloop.last%} /{%endif%}
-                                    {%endfor%}
-                            {%else%}
-                                <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
-                            {%endif%}        
-                                </div>
-                                
+                            <div class="collaborator-field"><strong>Setores:</strong>
+                                {%if funcionario.setores.all %}         
+                                        {% for setores in funcionario.setores.all%}
+                                            {{setores.nome}}{%if not forloop.last%} /{%endif%}
+                                        {%endfor%}
+                                {%else%}
+                                    <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
+                                {%endif%}        
                             </div>
+                                
+                        </div>
                         <div class="collaborator-actions">
                             {%if funcionario.setores.all %}
                             

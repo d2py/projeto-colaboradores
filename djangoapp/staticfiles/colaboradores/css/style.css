@@ -163,6 +163,29 @@ body {
 }
 
 /* Barra de pesquisa */
+.search-bar .card {
+    border: 1px solid #e3e6f0;
+}
+
+.search-bar .card-header {
+    background: linear-gradient(135deg, #f8f9fc 0%, #e3e6f0 100%);
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.search-bar .form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.search-bar .btn {
+    border-radius: 0.35rem;
+}
+
+.search-bar .input-group-text {
+    background-color: #f8f9fc;
+    border-color: #d1d3e2;
+}
+
 .search-bar {
     margin-bottom: 20px;
     display: flex;

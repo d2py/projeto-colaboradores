@@ -1,12 +1,13 @@
 {% load static %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
     <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
+
     <title>Colaborador RCS</title>
     
 </head>
@@ -45,11 +46,41 @@
                         <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
                     </div>
                 </header>
-                
-                <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar colaborador...">
-                    <button>Pesquisar</button>
+                <div class="content">
+                    <h2>Gerenciamento</h2>
+                    
+                    <div class="card-container">                        
+                        <div class="card">
+                            <h3>Inserir Funcionario</h3>
+                            <p>Cadastre um novo funcionario </p>
+                            <a href="{% url 'entrada_funcionario' %}" class="card-btn">Acessar Formulário</a>
+                        </div>
+                        <div class="card">
+                            <h3>Imprimir Lista </h3>
+                            <p>Imprimir lista dos funcionarios</p>
+                            <a href="formulario-colaborador.html" class="card-btn">Acessar Formulário</a>
+                        </div>  
+                    </div>
                 </div>
+    <div class="search-bar card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    {{ filter.form|crispy}}
+                </div>
+                <div class="col-md-3">
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button class="btn btn-primary me-md-2" type="submit">
+                            <i class="fas fa-search me-1"></i>Pesquisar
+                        </button>
+                        <a href="{% url 'enc_colaboradores' %}" class="btn btn-edit">
+                            <i class="fas fa-times me-1"></i>Limpar Filtro
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
                 
                 
 

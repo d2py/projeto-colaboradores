@@ -9,7 +9,8 @@ from colaboradores.models import Funcionario, Setor, Uniforme
 # Formulario
 from colaboradores.forms import FuncionarioForm, SetorForm, UniformeForm, AsssociarSetoresForm
 
-
+#Filtrar dados
+from colaboradores.filters import FuncionarioFilter
 
 # Tela da Preposta
 def home(request):
@@ -50,18 +51,22 @@ def enc_home(request):
 
 
 def enc_colaboradores(request):
-    funcionarios = Funcionario.objects.prefetch_related('setores').all()
+    funcionarios = Funcionario.objects.prefetch_related('setores').all().order_by('nome_funcionario')
+    funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
     context = {
-        'funcionarios': funcionarios
+        'funcionarios': funcionario_filter.qs,
+        'filter':funcionario_filter
     }
     return render(request, 'encarregada/enc_colaboradores.html',context)
 
 
 def enc_setores(request):
-    funcionarios = Funcionario.objects.prefetch_related('setores').all()
+    funcionarios = Funcionario.objects.prefetch_related('setores').all().order_by('nome_funcionario')
+    funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
     setores = Setor.objects.all().order_by('nome')
     context = {
-        'funcionarios': funcionarios,
+        'funcionarios': funcionario_filter.qs,
+        'filter':funcionario_filter,
         'setores':setores,
     }
     
@@ -76,7 +81,7 @@ def associar_setor_colaborador(request, pk):
         if form.is_valid():
             setores_selecionados = form.cleaned_data['setores']
             funcionario.setores.set(setores_selecionados) 
-            return redirect('enc_home')
+            return redirect('enc_setores')
     else:
         # Preenche com os setores já associados
         form = AsssociarSetoresForm(initial={
@@ -94,10 +99,11 @@ def enc_uniformes(request):
     try:
         
         # Busca todos os funcionários com seus relacionamentos
-        funcionarios = Funcionario.objects.select_related('uniformes').all()      
-        
+        funcionarios = Funcionario.objects.select_related('uniforme').all().order_by('nome_funcionario')      
+        funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
         context = {
-            'funcionarios': funcionarios, 
+            'funcionarios': funcionario_filter.qs,
+            'filter':funcionario_filter,
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
     
@@ -123,7 +129,7 @@ def entrada_funcionario(request):
         form = FuncionarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("enc_home")
+            return redirect("enc_colaboradores")
     else:
         form = FuncionarioForm()
     return render(request, "forms/entrada_funcionario.html", {'form':form})    
