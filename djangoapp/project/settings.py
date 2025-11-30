@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'colaboradores.apps.ColaboradoresConfig',
+    'django_filters',
     'crispy_forms',
     'crispy_bootstrap5',
     'debug_toolbar',

@@ -1,11 +1,13 @@
 {% load static %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
+    
+
     <title>Colaborador RCS</title>
 </head>
 <body>
@@ -46,21 +48,42 @@
                     <div class="card-container">
                         <div class="card">
                             <h3>Imprimir Lista de uniforme</h3>
-                            <p>Adicione um novo Setor.</p>
+                            <p>Imprimir lista de funcionario e uniformes.</p>
                             <a href="" class="card-btn">Acessar Formulário</a>
                         </div>
                         <div class="card">
-                            <h3>Inserir Setor</h3>
-                            <p>Adicione um novo Setor.</p>
-                            <a href="{% url 'registrar_setor'%}" class="card-btn">Acessar Formulário</a>
+                            <h3>Imprimir Uniformes</h3>
+                            <p>Imprimir Contabilidade dos uniformes ......</p>
+                            <a href="" class="card-btn">Acessar Formulário</a>
                         </div>
-                    </div> 
-                          
+                        <div class="card">
+                            <h3>Contabilidade dos Uniformes</h3>
+                            <p>Visualizar Contabilidade dos uniformes</p>
+                            <a href="" class="card-btn">Acessar Formulário</a>
+                        </div>
+                    </div>      
                 </div> 
-                <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar colaborador...">
-                    <button>Pesquisar</button>
+
+            <div class="search-bar card shadow-sm mb-4">
+                <div class="card-body">
+                    <form method="GET" class="row g-3 align-items-end">
+                        <div class="col-md-3">
+                            {{ filter.form|crispy}}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button class="btn btn-primary me-md-2" type="submit">
+                                    <i class="fas fa-search me-1"></i>Pesquisar
+                                </button>
+                                <a href="{% url 'enc_uniformes' %}" class="btn btn-edit">
+                                    <i class="fas fa-times me-1"></i>Limpar Filtro
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
+            
                  
                 
                 <div class="collaborators-list">
@@ -87,17 +110,12 @@
                                     {%endif%}
                                 
                                 
-                                <!-- Setor do funcionário -->
-                                {% if funcionario.setor %}
-                                    <div class="collaborator-field"><strong>Setor:</strong> </div>
-                                {% else %}
-                                    <div class="collaborator-field"><em></em></div>
-                                {% endif %}
+                                
                             </div>
                             <div class="collaborator-actions">
-                                {% if funcionario.uniformes %}
-                                    <a href="" class="card-btn">Editar</a>
-                                    <a href="" class="card-btn">Excluir</a>
+                                {% if  funcionario.uniforme %}
+                                    <a href="" class="btn btn-edit">Editar</a>
+                                    <a href="" class="btn btn-delete">Excluir</a>
                                 {% else %}
                                     <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
                                     

@@ -9,7 +9,7 @@ from colaboradores.views import entrada_funcionario, editar_funcionario, excluir
 
  
 
-app_colaboradores = 'colaboadores'
+app_colaboradores = 'colaboradores'
 
 urlpatterns = [
     
