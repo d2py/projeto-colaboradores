@@ -4,6 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
+from django.core.paginator import Paginator
+
+
 # Create your views here.
 from colaboradores.models import Funcionario, Setor, Uniforme
 # Formulario
@@ -52,9 +55,15 @@ def enc_home(request):
 
 def enc_colaboradores(request):
     funcionarios = Funcionario.objects.prefetch_related('setores').all().order_by('nome_funcionario')
-    funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
+    funcionario_filter = FuncionarioFilter(request.GET, queryset=funcionarios)
+
+    paginacao = Paginator(funcionario_filter.qs, 12)
+    numero_pagina = request.GET.get("page")
+    page_obj = paginacao.get_page(numero_pagina)
+
     context = {
-        'funcionarios': funcionario_filter.qs,
+
+        'funcionarios': page_obj,
         'filter':funcionario_filter
     }
     return render(request, 'encarregada/enc_colaboradores.html',context)
@@ -62,15 +71,18 @@ def enc_colaboradores(request):
 
 def enc_setores(request):
     funcionarios = Funcionario.objects.prefetch_related('setores').all().order_by('nome_funcionario')
-    funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
+    funcionario_filter = FuncionarioFilter(request.GET, queryset=funcionarios)
+
+    paginacao = Paginator(funcionario_filter.qs, 12)
+    numero_pagina = request.GET.get("page")
+    page_obj = paginacao.get_page(numero_pagina)
+
     setores = Setor.objects.all().order_by('nome')
     context = {
-        'funcionarios': funcionario_filter.qs,
+        'funcionarios': page_obj,
         'filter':funcionario_filter,
         'setores':setores,
     }
-    
-
     return render(request, 'encarregada/enc_setores.html',context)
 
 
@@ -97,12 +109,16 @@ def associar_setor_colaborador(request, pk):
 
 def enc_uniformes(request):
     try:
-        
         # Busca todos os funcionários com seus relacionamentos
         funcionarios = Funcionario.objects.select_related('uniforme').all().order_by('nome_funcionario')      
-        funcionario_filter = FuncionarioFilter(request.GET, funcionarios)
+        funcionario_filter = FuncionarioFilter(request.GET, queryset=funcionarios)
+
+        paginacao = Paginator(funcionario_filter.qs, 12)
+        numero_pagina = request.GET.get("page")
+        page_obj = paginacao.get_page(numero_pagina)
+
         context = {
-            'funcionarios': funcionario_filter.qs,
+            'funcionarios': page_obj,
             'filter':funcionario_filter,
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
@@ -154,7 +170,6 @@ def registrar_uniforme(request, pk):
     funcionario = Funcionario.objects.get(pk=pk) 
       # busca o funcionário
     form = UniformeForm(request.POST or None)
-    
     if request.method == "POST":
         if form.is_valid():
             uniforme = form.save(commit=False)
@@ -163,7 +178,6 @@ def registrar_uniforme(request, pk):
             return redirect('enc_uniformes')
     else:
         form = UniformeForm()
-    
     return render(request, "forms/uniforme_form.html", {'forms': form, 'funcionario': funcionario})
 
 
@@ -177,7 +191,6 @@ def editar_funcionario(request, pk):
             return redirect('enc_colaboradores')
     else:
         form = FuncionarioForm(instance=funcionario)
-
     return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
 
 def editar_setor(request, pk):
@@ -189,7 +202,6 @@ def editar_setor(request, pk):
             return redirect('enc_setores')
     else:
         form = SetorForm(instance=setor)
-
     return render(request, 'edicao/editar_setor.html', {"forms":form, 'setor':setor})
 
 
