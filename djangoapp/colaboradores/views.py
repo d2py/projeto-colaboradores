@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+ 
 
 # Create your views here.
 from colaboradores.models import Funcionario, Setor, Uniforme
@@ -108,6 +108,9 @@ def associar_setor_colaborador(request, pk):
         
 
 def enc_uniformes(request):
+    item = Uniforme.objects.all().values()
+    
+    
     try:
         # Busca todos os funcionários com seus relacionamentos
         funcionarios = Funcionario.objects.select_related('uniforme').all().order_by('nome_funcionario')      
@@ -128,6 +131,8 @@ def enc_uniformes(request):
         # Fallback: dados simples
         funcionarios = Funcionario.objects.all()
         context = {
+            
+            'uniformes':uniformes,
             'funcionarios': funcionarios,
             'erro': str(e)
         }
@@ -166,7 +171,7 @@ def registrar_setor(request):
     return render(request, "forms/setor_form.html", {'form':form}) 
 
 
-def registrar_uniforme(request, pk):
+def registrar_uniforme(request, pk):  
     funcionario = Funcionario.objects.get(pk=pk) 
       # busca o funcionário
     form = UniformeForm(request.POST or None)
@@ -178,7 +183,7 @@ def registrar_uniforme(request, pk):
             return redirect('enc_uniformes')
     else:
         form = UniformeForm()
-    return render(request, "forms/uniforme_form.html", {'forms': form, 'funcionario': funcionario})
+    return render(request, "forms/uniforme_form.html", {'forms':form, 'funcionario':funcionario})
 
 
 # Editar informaçoes
@@ -203,6 +208,27 @@ def editar_setor(request, pk):
     else:
         form = SetorForm(instance=setor)
     return render(request, 'edicao/editar_setor.html', {"forms":form, 'setor':setor})
+
+def editar_uniforme(request, matricula_funcionario):
+    funcionario = get_object_or_404(Funcionario, id=matricula_funcionario)
+
+    try:
+        uniforme = Uniforme.objects.get(pk=matricula_funcionario)
+        is_novo = False
+    except Uniforme.DoesNotExist:
+        uniforme = Uniforme(funcionario_id=matricula_funcionario)
+        is_novo = True    
+    if request.method == "POST":
+        form = UniformeForm(request.POST, instance=uniforme)
+        if form.is_valid():
+            uniforme_salvo = form.save(commit=False)
+            uniforme_salvo.funcionario_id = matricula_funcionario
+            uniforme_salvo.save()
+            return redirect('enc_uniformes')
+    else:
+        form = UniformeForm(instance=uniforme)
+    return render(request, 'edicao/editar_uniforme.html', {"forms":form,"funcionario":funcionario, "is_novo":is_novo})
+
 
 
 

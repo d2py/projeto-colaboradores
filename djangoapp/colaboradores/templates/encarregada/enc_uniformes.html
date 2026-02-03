@@ -114,7 +114,7 @@
                             </div>
                             <div class="collaborator-actions">
                                 {% if  funcionario.uniforme %}
-                                    <a href="" class="btn btn-edit">Editar</a>
+                                    <a href="{% url 'editar_uniforme' pk=funcionario.pk %}" class="btn btn-edit">Editar</a>
                                     <a href="" class="btn btn-delete">Excluir</a>
                                 {% else %}
                                     <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
@@ -162,49 +162,7 @@
                     
                     <div class="tables-container">
                         <div class="uniform-category">
-                            <h4>Blusas</h4>
-                            <table class="uniform-table">
-                                <tr>
-                                    <th>Tamanho</th>
-                                    <th>Quantidade</th>
-                                    <th>Banherista</th>
-                                </tr>
-                                <tr>
-                                    <td>EXTRA G</td>
-                                    <td>1</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>G</td>
-                                    <td>5</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>G </td>
-                                    <td>3</td>
-                                    <td>BANHERISTA</td>
-                                </tr>
-                                <tr>
-                                    <td>GG</td>
-                                    <td>2</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>M</td>
-                                    <td>4</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>M </td>
-                                    <td>3</td>
-                                    <td>BANHERISTA</td>
-                                </tr>
-                                <tr>
-                                    <td>P </td>
-                                    <td>2</td>
-                                    <td>BANHERISTA</td>
-                                </tr>
-                            </table>
+                            {{df|safe}}
                         </div>
                         
                         <div class="uniform-category">
