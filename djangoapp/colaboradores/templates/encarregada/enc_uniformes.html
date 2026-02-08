@@ -114,7 +114,7 @@
                             </div>
                             <div class="collaborator-actions">
                                 {% if  funcionario.uniforme %}
-                                    <a href="{% url 'editar_uniforme' pk=funcionario.pk %}" class="btn btn-edit">Editar</a>
+                                    <a href="{% url 'editar_uniforme' pk=funcionario.pk%}" class="btn btn-edit">Editar</a>
                                     <a href="" class="btn btn-delete">Excluir</a>
                                 {% else %}
                                     <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>

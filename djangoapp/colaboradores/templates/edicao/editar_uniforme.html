@@ -13,19 +13,14 @@
 </head>
 <body>
     <div class="form-container">
-        <h1 class="form-title">
-            <i class="fas fa-edit me-2"></i>
-            {% if is_novo %} Adicionar{% else%} Editar {% endif%} Uniforme
-        </h1>
-
         <div class="alert alert-info">
             <i class="fas fa-user me-2"></i>
             <strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}
             <br>
-            <small>ID do Funcionário: {{ funcionario.id }}</small>
+            <small>Matrícula do Funcionário: {{ funcionario.pk }}</small>
         </div>
 
-        <form action="."  method="POST" novalidate>
+        <form action="{% url 'editar_uniforme' funcionario.pk %}"  method="POST" novalidate>
             {% csrf_token %}
             
             {% if forms.errors %}
@@ -35,7 +30,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             {% endif %}
-            <p><strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}</p>
             {{ forms|crispy }}
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
@@ -46,8 +40,7 @@
                     <i class="fas fa-undo me-1"></i>Limpar
                 </button>
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-1"></i>
-                    {% if is_novo %} Criar {% else %}Atualizar {% endif%}Uniforme
+                    <i class="fas fa-save me-1"></i>Salvar
                 </button>
             </div>
         </form>

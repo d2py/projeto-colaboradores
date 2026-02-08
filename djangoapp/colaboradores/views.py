@@ -173,13 +173,13 @@ def registrar_setor(request):
 
 def registrar_uniforme(request, pk):  
     funcionario = Funcionario.objects.get(pk=pk) 
-      # busca o funcionário
-    form = UniformeForm(request.POST or None)
+    # busca o funcionário
     if request.method == "POST":
+        form = UniformeForm(request.POST)
         if form.is_valid():
-            uniforme = form.save(commit=False)
-            uniforme.funcionario = funcionario  # atribui o objeto
-            uniforme.save()
+            uniforme = form.save()
+            funcionario.uniforme = uniforme # atribui o objeto
+            funcionario.save()
             return redirect('enc_uniformes')
     else:
         form = UniformeForm()
@@ -209,28 +209,18 @@ def editar_setor(request, pk):
         form = SetorForm(instance=setor)
     return render(request, 'edicao/editar_setor.html', {"forms":form, 'setor':setor})
 
-def editar_uniforme(request, matricula_funcionario):
-    funcionario = get_object_or_404(Funcionario, id=matricula_funcionario)
 
-    try:
-        uniforme = Uniforme.objects.get(pk=matricula_funcionario)
-        is_novo = False
-    except Uniforme.DoesNotExist:
-        uniforme = Uniforme(funcionario_id=matricula_funcionario)
-        is_novo = True    
+def editar_uniforme(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)
     if request.method == "POST":
-        form = UniformeForm(request.POST, instance=uniforme)
+        form = UniformeForm(request.POST, instance=funcionario.uniforme)
         if form.is_valid():
-            uniforme_salvo = form.save(commit=False)
-            uniforme_salvo.funcionario_id = matricula_funcionario
-            uniforme_salvo.save()
+            form.save()
             return redirect('enc_uniformes')
     else:
-        form = UniformeForm(instance=uniforme)
-    return render(request, 'edicao/editar_uniforme.html', {"forms":form,"funcionario":funcionario, "is_novo":is_novo})
-
-
-
+        form = UniformeForm(instance=funcionario.uniforme)
+    return render(request, 'edicao/editar_uniforme.html', {"forms":form, 'funcionario':funcionario})
+    
 
 # Excluir um Funcionario 
 def excluir_funcionario(request, pk):

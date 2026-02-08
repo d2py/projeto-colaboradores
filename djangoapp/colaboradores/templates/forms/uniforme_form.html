@@ -16,7 +16,12 @@
         <h1 class="form-title">
             <i class="fas fa-edit me-2"></i>Adicioar Uniforme
         </h1>
-
+        <div class="alert alert-info">
+            <i class="fas fa-user me-2"></i>
+            <strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}
+            <br>
+            <small>Matrícula do Funcionário: {{ funcionario.pk }}</small>
+        </div>
         <form action="{% url 'adicionar_uniforme' funcionario.pk %}"  method="POST" novalidate>
             {% csrf_token %}
             
@@ -27,7 +32,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             {% endif %}
-            <p><strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}</p>
             {{ forms|crispy }}
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
