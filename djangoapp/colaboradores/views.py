@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+ 
 
 # Create your views here.
 from colaboradores.models import Funcionario, Setor, Uniforme
@@ -108,6 +108,9 @@ def associar_setor_colaborador(request, pk):
         
 
 def enc_uniformes(request):
+    item = Uniforme.objects.all().values()
+    
+    
     try:
         # Busca todos os funcionários com seus relacionamentos
         funcionarios = Funcionario.objects.select_related('uniforme').all().order_by('nome_funcionario')      
@@ -128,6 +131,8 @@ def enc_uniformes(request):
         # Fallback: dados simples
         funcionarios = Funcionario.objects.all()
         context = {
+            
+            'uniformes':uniformes,
             'funcionarios': funcionarios,
             'erro': str(e)
         }
@@ -166,19 +171,19 @@ def registrar_setor(request):
     return render(request, "forms/setor_form.html", {'form':form}) 
 
 
-def registrar_uniforme(request, pk):
+def registrar_uniforme(request, pk):  
     funcionario = Funcionario.objects.get(pk=pk) 
-      # busca o funcionário
-    form = UniformeForm(request.POST or None)
+    # busca o funcionário
     if request.method == "POST":
+        form = UniformeForm(request.POST)
         if form.is_valid():
-            uniforme = form.save(commit=False)
-            uniforme.funcionario = funcionario  # atribui o objeto
-            uniforme.save()
+            uniforme = form.save()
+            funcionario.uniforme = uniforme # atribui o objeto
+            funcionario.save()
             return redirect('enc_uniformes')
     else:
         form = UniformeForm()
-    return render(request, "forms/uniforme_form.html", {'forms': form, 'funcionario': funcionario})
+    return render(request, "forms/uniforme_form.html", {'forms':form, 'funcionario':funcionario})
 
 
 # Editar informaçoes
@@ -205,6 +210,17 @@ def editar_setor(request, pk):
     return render(request, 'edicao/editar_setor.html', {"forms":form, 'setor':setor})
 
 
+def editar_uniforme(request, pk):
+    funcionario = get_object_or_404(Funcionario, pk=pk)
+    if request.method == "POST":
+        form = UniformeForm(request.POST, instance=funcionario.uniforme)
+        if form.is_valid():
+            form.save()
+            return redirect('enc_uniformes')
+    else:
+        form = UniformeForm(instance=funcionario.uniforme)
+    return render(request, 'edicao/editar_uniforme.html', {"forms":form, 'funcionario':funcionario})
+    
 
 # Excluir um Funcionario 
 def excluir_funcionario(request, pk):

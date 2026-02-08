@@ -5,7 +5,7 @@ from colaboradores.views import home, list_colaboradores, encarregadas, setores,
 from colaboradores.views import enc_home,enc_colaboradores, enc_setores,enc_uniformes,enc_ferias
 
 #Edicao de Funcionario/exclusão/Adicionar
-from colaboradores.views import entrada_funcionario, editar_funcionario, excluir_funcionario, registrar_setor,associar_setor_colaborador, editar_setor, registrar_uniforme
+from colaboradores.views import entrada_funcionario, editar_funcionario, excluir_funcionario, registrar_setor,associar_setor_colaborador, editar_setor, registrar_uniforme, editar_uniforme
 
  
 
@@ -25,6 +25,7 @@ urlpatterns = [
     path('uniformes/todos_uniformes/', todos_uniformes, name='todos_uniformes'),
     path('ferias/', ferias, name='ferias'),
     path('ferias/todas_ferias/', todas_ferias, name='todas_ferias'),
+    
     # url da encarrega
     path('enc_home/',enc_home, name='enc_home'),
     path('enc_colaboradores/',enc_colaboradores, name='enc_colaboradores'),
@@ -35,12 +36,14 @@ urlpatterns = [
     #Formulario 
     path('entrada/funcionario/',entrada_funcionario, name="entrada_funcionario" ),
     path('adicionar/setor/',registrar_setor, name="registrar_setor" ),
-    path('adcionar/setor/funcionario/<int:pk>',associar_setor_colaborador, name='setor_colaborador'),
+    path('adicionar/setor/funcionario/<int:pk>',associar_setor_colaborador, name='setor_colaborador'),
     path('adicionar/uniforme/<int:pk>',registrar_uniforme, name="adicionar_uniforme" ),
-    # Edicionar
+
+    # Editar informacoes
     path('editar/funcionario/<int:pk>', editar_funcionario, name="editar_funcionario"),
     path('excluir/funcionario/<int:pk>', excluir_funcionario, name="excluir_funcionario"),
     path('editar/setor/<int:pk>', editar_setor, name="editar_setor"),
+    path('editar/uniforme/<int:pk>', editar_uniforme, name="editar_uniforme"),
     
 
 ]

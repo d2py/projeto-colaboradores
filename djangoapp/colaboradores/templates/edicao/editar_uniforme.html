@@ -13,16 +13,14 @@
 </head>
 <body>
     <div class="form-container">
-        <h1 class="form-title">
-            <i class="fas fa-edit me-2"></i>Adicioar Uniforme
-        </h1>
         <div class="alert alert-info">
             <i class="fas fa-user me-2"></i>
             <strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}
             <br>
             <small>Matrícula do Funcionário: {{ funcionario.pk }}</small>
         </div>
-        <form action="{% url 'adicionar_uniforme' funcionario.pk %}"  method="POST" novalidate>
+
+        <form action="{% url 'editar_uniforme' funcionario.pk %}"  method="POST" novalidate>
             {% csrf_token %}
             
             {% if forms.errors %}

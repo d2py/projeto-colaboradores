@@ -117,12 +117,11 @@
                         </div>
                         <div class="collaborator-actions">
                             {%if funcionario.setores.all %}
-                            
                                 <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Editar</a>
                             {% elif not funcionario.setores.all %}
                                 <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Adicionar funcionario ao Setor</a>
                             {%else%}
-                                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">ir para Adicionar</a>
+                                <a href="{% url 'registrar_setor' %}" class="btn btn-edit">Inserir Setor</a>
                             {%endif%}
                         </div>
                     </div>
