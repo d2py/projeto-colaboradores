@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404,render, redirect
 from django.db.models import Prefetch
 from django.contrib import messages
 from django.core.paginator import Paginator
- 
+from django.db.models import Count
 
 # Create your views here.
 from colaboradores.models import Funcionario, Setor, Uniforme
@@ -104,34 +104,41 @@ def associar_setor_colaborador(request, pk):
         'form':form
     }
     return render(request, 'encarregada/setor_colaborador.html',context)
-
-        
+      
 
 def enc_uniformes(request):
-    item = Uniforme.objects.all().values()
-    
-    
     try:
         # Busca todos os funcionários com seus relacionamentos
+        setor = Setor.objects.all()
         funcionarios = Funcionario.objects.select_related('uniforme').all().order_by('nome_funcionario')      
         funcionario_filter = FuncionarioFilter(request.GET, queryset=funcionarios)
-
+        '''Chama uniforme e faz a contabilidade'''
+        blusa = Uniforme.objects.values('blusa').annotate(total=Count('blusa'))
+        blusa_frio = Uniforme.objects.values('blusa_frio').annotate(total=Count('blusa_frio'))
+        calca = Uniforme.objects.values('calca').annotate(total=Count('calca'))
+        sapato = Uniforme.objects.values('sapato').annotate(total=Count('sapato'))
+        galocha = Uniforme.objects.values('galocha').annotate(total=Count('galocha'))
+        """Faz a pginação, a cada 12 funcionario registrado e criada uma nova pagina de navegação"""
         paginacao = Paginator(funcionario_filter.qs, 12)
         numero_pagina = request.GET.get("page")
         page_obj = paginacao.get_page(numero_pagina)
 
         context = {
+            'blusa':blusa,
+            'blusa_frio':blusa_frio,
+            'calca':calca,
+            'sapato':sapato,
+            'galocha':galocha,
             'funcionarios': page_obj,
             'filter':funcionario_filter,
+            'setor':setor,
         }
         return render(request, 'encarregada/enc_uniformes.html', context)
-    
     except Exception as e:
         print(f"Erro na query: {e}")
         # Fallback: dados simples
         funcionarios = Funcionario.objects.all()
         context = {
-            
             'uniformes':uniformes,
             'funcionarios': funcionarios,
             'erro': str(e)
@@ -172,14 +179,14 @@ def registrar_setor(request):
 
 
 def registrar_uniforme(request, pk):  
-    funcionario = Funcionario.objects.get(pk=pk) 
+    funcionario = Funcionario.objects.get(pk=pk)
     # busca o funcionário
     if request.method == "POST":
         form = UniformeForm(request.POST)
         if form.is_valid():
             uniforme = form.save()
-            funcionario.uniforme = uniforme # atribui o objeto
-            funcionario.save()
+            uniforme.funcionario = funcionario # atribui o objeto
+            uniforme.save()
             return redirect('enc_uniformes')
     else:
         form = UniformeForm()
@@ -198,6 +205,7 @@ def editar_funcionario(request, pk):
         form = FuncionarioForm(instance=funcionario)
     return render(request, 'edicao/editar_funcionario.html', {"form":form, 'funcionario':funcionario})
 
+
 def editar_setor(request, pk):
     setor = get_object_or_404(Setor, pk=pk)
     if request.method == "POST":
@@ -212,14 +220,15 @@ def editar_setor(request, pk):
 
 def editar_uniforme(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
+    uniforme = Uniforme.objects.get(funcionario=funcionario)
     if request.method == "POST":
-        form = UniformeForm(request.POST, instance=funcionario.uniforme)
+        form = UniformeForm(request.POST, instance=uniforme)
         if form.is_valid():
             form.save()
             return redirect('enc_uniformes')
     else:
-        form = UniformeForm(instance=funcionario.uniforme)
-    return render(request, 'edicao/editar_uniforme.html', {"forms":form, 'funcionario':funcionario})
+        form = UniformeForm(instance=uniforme)
+    return render(request, 'edicao/editar_uniforme.html', {"forms":form, 'funcionario':funcionario, 'uniforme':uniforme})
     
 
 # Excluir um Funcionario 

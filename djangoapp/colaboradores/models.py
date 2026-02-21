@@ -60,7 +60,23 @@ class Setor(models.Model):
         return self.nome
 
 
+
+
+
+
+class Funcionario(models.Model):
+    setores = models.ManyToManyField(Setor, null=True,blank=True ,related_name='funcionarios')
+    matricula_funcionario = models.PositiveIntegerField(primary_key=True)
+    nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
+        r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
+        'Apenas letras são permitido no nome.'
+    )])
+    status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
+    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
+    
+
 class Uniforme(models.Model):
+    funcionario = models.OneToOneField(Funcionario,null=True,blank=True , on_delete=models.CASCADE, related_name='uniforme')
     calca = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Calça", null=False, blank=False)
     blusa = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa", null=False, blank=False)
     blusa_frio = models.CharField(choices=TAMANHO_ROUPA, max_length=6, verbose_name="Blusa de Frio", null=False, blank=False)
@@ -72,18 +88,3 @@ class Uniforme(models.Model):
         MinValueValidator(34),
         MaxValueValidator(45)
     ],null=False, blank=False)
-
-
-
-class Funcionario(models.Model):
-    uniforme = models.OneToOneField(Uniforme,null=True,blank=True , on_delete=models.CASCADE, related_name='uniforme')
-    setores = models.ManyToManyField(Setor, null=True,blank=True ,related_name='funcionarios')
-    matricula_funcionario = models.PositiveIntegerField(primary_key=True)
-    nome_funcionario = models.CharField(max_length=60,verbose_name="Nome Funcionario",blank=False , validators=[ RegexValidator(
-        r'^[a-zA-ZáàâãéèêióôõúçñÁÀÂÃÉÈÊIÓÔÕÚÇÑ\s]+$',
-        'Apenas letras são permitido no nome.'
-    )])
-    status = models.CharField(choices=STATUS, verbose_name="Status" ,max_length=3, null=False, default="NAO")
-    ferias = models.CharField(choices=FERIAS,verbose_name="Ferias" ,max_length=3,blank=True , null=True )
-    
-

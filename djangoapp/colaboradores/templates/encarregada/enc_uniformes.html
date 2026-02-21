@@ -104,7 +104,7 @@
                                         <div class="collaborator-field"><strong>Blusa:</strong>{{funcionario.uniforme.blusa}} </div>
                                         <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.uniforme.blusa_frio|default:"—" }} </div>
                                         <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniforme.sapato|default:"—" }} </div>
-                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniforme.sapato|default:"—" }} </div>
+                                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniforme.galocha|default:"—" }} </div>
                                     {% else %}
                                         <div class="collaborator-field"><em>Uniforme não cadastrado.</em></div>   
                                     {%endif%}
@@ -114,8 +114,8 @@
                             </div>
                             <div class="collaborator-actions">
                                 {% if  funcionario.uniforme %}
-                                    <a href="{% url 'editar_uniforme' pk=funcionario.pk%}" class="btn btn-edit">Editar</a>
-                                    <a href="" class="btn btn-delete">Excluir</a>
+                                    <a href="{% url 'editar_uniforme' pk=funcionario.pk %}" class="btn btn-edit">Editar</a>
+                                    
                                 {% else %}
                                     <a href="{% url 'adicionar_uniforme' pk=funcionario.pk %}" class="card-btn">Adicionar</a>
                                     
@@ -158,102 +158,88 @@
                 <div class="uniform-count">
                     <h3>Contagem de Uniformes</h3>
                     <p><strong>Encarregada:</strong> Monica Martins de Oliveira Costa</p>
-                    <p><strong>Setores atendidos:</strong> CDT/DPI, DPG, DPI, DIMEQ, C-Biotech, INFRA, PROTOCOLO, ACE, CRAD, CAEP, PCTECH, CEAD, UNB/TV, CET, CDS, MULTIUSO 2</p>
+                    <p><strong>Setores atendidos:</strong>{%for setores in setor %} {{setores.nome}}/{%endfor%}</p>
                     
                     <div class="tables-container">
                         <div class="uniform-category">
-                            {{df|safe}}
-                        </div>
-                        
-                        <div class="uniform-category">
-                            <h4>Blusas de Frio</h4>
+                            <h4>Blusa</h4>
                             <table class="uniform-table">
                                 <tr>
                                     <th>Tamanho</th>
                                     <th>Quantidade</th>
                                 </tr>
+                                {%for item in blusa%}
                                 <tr>
-                                    <td>EXTRA G</td>
-                                    <td>1</td>
+                                    <td>{{item.blusa}}</td>
+                                    <td>{{item.total}}</td>
                                 </tr>
+                                {%endfor%}
+                            </table>
+                        </div>
+                        
+                        <div class="uniform-category">
+                            <h4>Blusa de Frio</h4>
+                            <table class="uniform-table">
                                 <tr>
-                                    <td>P</td>
-                                    <td>1</td>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
                                 </tr>
+                                {%for item in blusa_frio%}
                                 <tr>
-                                    <td>G</td>
-                                    <td>7</td>
+                                    <td>{{item.blusa_frio}}</td>
+                                    <td>{{item.total}}</td>
                                 </tr>
-                                <tr>
-                                    <td>M</td>
-                                    <td>8</td>
-                                </tr>
+                                {%endfor%}
                             </table>
                         </div>
                     </div>
                     
                     <div class="tables-container">
                         <div class="uniform-category">
-                            <h4>Calças</h4>
+                            <h4>Calça</h4>
                             <table class="uniform-table">
+
                                 <tr>
                                     <th>Tamanho</th>
                                     <th>Quantidade</th>
                                 </tr>
-                                <tr>
-                                    <td>P</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>GG</td>
-                                    <td>4</td>
-                                </tr>
-                                <tr>
-                                    <td>G</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>M</td>
-                                    <td>9</td>
-                                </tr>
+                                {%for item in calca%}
+                                    <tr>
+                                        <td>{{item.calca}}</td>
+                                        <td>{{item.total}}</td>
+                                    </tr>
+                                {%endfor%}
                             </table>
                         </div>
                         
                         <div class="uniform-category">
-                            <h4>Sapatos</h4>
+                            <h4>Sapato</h4>
                             <table class="uniform-table">
                                 <tr>
                                     <th>Tamanho</th>
                                     <th>Quantidade</th>
                                 </tr>
+                                {%for item in sapato%}
+                                    <tr>
+                                        <td>{{item.sapato}}</td>
+                                        <td>{{item.total}}</td>
+                                    </tr>
+                                {%endfor%}
+                            </table>
+                        </div>
+                        <div class="uniform-category">
+                            <h4>Galocha</h4>
+                            <table class="uniform-table">
                                 <tr>
-                                    <td>34</td>
-                                    <td>2</td>
+                                    <th>Tamanho</th>
+                                    <th>Quantidade</th>
                                 </tr>
-                                <tr>
-                                    <td>35</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>36</td>
-                                    <td>4</td>
-                                </tr>
-                                <tr>
-                                    <td>37</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>38</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>39</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>40</td>
-                                    <td>2</td>
-                                </tr>
+                                {%for item in galocha%}
+                                    <tr>
+                                        <td>{{item.galocha}}</td>
+                                        <td>{{item.total}}</td>
+                                    </tr>
+                                {%endfor%}
                             </table>
                         </div>
                     </div>

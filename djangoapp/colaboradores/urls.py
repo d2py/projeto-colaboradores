@@ -27,11 +27,11 @@ urlpatterns = [
     path('ferias/todas_ferias/', todas_ferias, name='todas_ferias'),
     
     # url da encarrega
-    path('enc_home/',enc_home, name='enc_home'),
-    path('enc_colaboradores/',enc_colaboradores, name='enc_colaboradores'),
-    path('enc_setores/',enc_setores, name='enc_setores'),
-    path('enc_uniformes/',enc_uniformes, name='enc_uniformes'),
-    path('enc_ferias/',enc_ferias, name='enc_ferias'),
+    path('encarrega/home/',enc_home, name='enc_home'),
+    path('encarrega/colaboradores/',enc_colaboradores, name='enc_colaboradores'),
+    path('encarrega/setores/',enc_setores, name='enc_setores'),
+    path('encarrega/uniformes/',enc_uniformes, name='enc_uniformes'),
+    path('encarrega/ferias/',enc_ferias, name='enc_ferias'),
 
     #Formulario 
     path('entrada/funcionario/',entrada_funcionario, name="entrada_funcionario" ),
