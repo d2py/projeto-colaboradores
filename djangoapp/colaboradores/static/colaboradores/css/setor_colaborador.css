@@ -1,0 +1,57 @@
+/* Estilos para a lista suspensa */
+.collaborator-actions select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.collaborator-actions select:hover {
+    border-color: #007bff;
+}
+
+.collaborator-actions select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.collaborator-actions select option {
+    padding: 8px 12px;
+    background-color: white;
+    color: #333;
+}
+
+.collaborator-actions select option:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilo para quando estiver desabilitado */
+.collaborator-actions select:disabled {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Container da lista suspensa */
+.select-container {
+    position: relative;
+    min-width: 200px;
+}
+
+.select-container::after {
+    content: "▼";
+    font-size: 12px;
+    color: #666;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}

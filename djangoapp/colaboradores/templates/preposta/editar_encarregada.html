@@ -13,28 +13,25 @@
 </head>
 <body>
     <div class="form-container">
-        <div class="alert alert-info">
-            <i class="fas fa-user me-2"></i>
-            <strong>Funcionário:</strong> {{ funcionario.nome_funcionario }}
-            <br>
-            <small>Matrícula do Funcionário: {{ funcionario.pk }}</small>
-        </div>
+        <h1 class="form-title">
+            <i class="fas fa-edit me-2"></i>Formulário
+        </h1>
 
-        <form action="{% url 'editar_uniforme' pk=funcionario.pk %}"  method="POST" novalidate>
+        <form action="." method="POST"novalidate >
             {% csrf_token %}
             
-            {% if forms.errors %}
+            {% if form.errors %}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     Por favor, corrija os erros abaixo.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             {% endif %}
-             
-            {{ forms|crispy }}
+
+            {{ form|crispy }}
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                <a href="{% url 'uniformes' %}" class="btn btn-primary">
+                <a href="{% url 'home' %}" class="btn btn-primary">
                     <i class=" me-1"></i>Cancelar
                 </a>
                 <button type="reset" class="btn btn-outline-secondary me-md-2">

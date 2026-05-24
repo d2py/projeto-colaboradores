@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+    <title>{% block title %}Colaboradores RCS{% endblock %}</title>
+</head>
+<body>
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>COLABORADORES</h2>
+            <p>RCS</p>
+        </div>
+
+        <ul class="sidebar-menu">
+            {% if request.user.is_preposta %}
+                <li><a href="/home/"><i>🏠</i> HOME</a></li>
+                <li><a href="/encarregada/colaboradores/"><i>👥</i> COLABORADORES</a></li>
+                <li><a href="/encarregadas/"><i>👩‍💼</i> ENCARREGADAS</a></li>
+                <li><a href="/setores/"><i>🏢</i> SETORES</a></li>
+                <li><a href="/uniformes/"><i>👕</i> UNIFORMES</a></li>
+                <li><a href="/ferias/"><i>🏖️</i> FÉRIAS</a></li>
+            {% else %}
+                <li><a href="/home/"><i>🏠</i> HOME</a></li>
+                <li><a href="/encarregada/colaboradores/"><i>👥</i> COLABORADORES</a></li>
+                <li><a href="/setores/"><i>🏢</i> SETORES</a></li>
+                <li><a href="/uniformes/"><i>👕</i> UNIFORMES</a></li>
+                <li><a href="/encarregada/ferias/"><i>🏖️</i> FÉRIAS</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="sidebar-credits">DESENVOLVIDO POR DIEGO</div>
+    </aside>
+
+    <main class="main-content">
+        <div class="content-wrapper">
+
+            <header class="header">
+                <h2>{% block page_title %}Bem-vindo ao Portal{% endblock %}</h2>
+                <div class="user-info">
+                    <span>Usuário: {{ request.user.get_full_name|default:request.user.username }}</span>
+                    <form method="post" action="/logout/">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Sair</button>
+                    </form>
+                </div>
+            </header>
+
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert alert--{{ msg.tags }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 COLABORADORES RCS - Todos os direitos reservados</p>
+        </footer>
+    </main>
+
+</div>
+</body>
+</html>

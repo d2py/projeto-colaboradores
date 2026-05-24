@@ -1,0 +1,174 @@
+{% extends 'base_colaboradores.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Uniformes{% endblock %}
+{% block page_title %}Uniformes{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card-container">
+        <div class="card">
+            <h3>Contabilidade dos Uniformes</h3>
+            <p>Contabilidade de todos os uniformes</p>
+            <a href="/contabilidade/uniforme/preposta/" class="card-btn">Acessar</a>
+        </div>
+    </div>    
+    <div class="card-container">
+        <div class="card">
+            <h3>Imprimir</h3>
+            <p>Contabilidade de todos os uniformes</p>
+            <a href="#" class="card-btn" onclick="window.print()">Imprimir</a>
+        </div>
+    </div> 
+</div>     
+{% if request.user.is_preposta %}
+    <!-- PREPOSTA: cards de encarregadas com contagem -->    
+    <div class="supervisors-container">           
+        {% for encarregada in encarregadas %}            
+            <div class="card-container">
+                <div class="card">
+                    <a href="/uniformes/encarregada/{{ encarregada.pk }}/" class="supervisor-btn">
+                        <h2 class="supervisor-name">Encarregado(a): {{ encarregada.get_full_name|default:encarregada.username }}</h2>
+                        <h4 class="supervisor-count">Total de Funcionarios: {{ encarregada.total }} </h4>
+                    </a>
+                </div>
+            </div>             
+        {% empty %}
+            <p>Nenhuma encarregada cadastrada.</p>            
+        {% endfor %}
+    </div>
+    
+        
+{% endif %}
+  
+{% if request.user.is_encarregada %}
+    <!-- ENCARREGADA: lista de funcionários com uniformes -->
+    
+    <div class="card-container">
+        <div class="card">
+            <h3>Imprimir lista de uniformes</h3>
+            <p>Imprimir lista de funcionários e uniformes.</p>
+            <a href="#" class="card-btn" onclick="window.print()">Imprimir</a>
+        </div>
+    </div>
+
+    <div class="search-bar card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-md-3">{{ filter.form|crispy }}</div>
+                <div class="col-md-3">
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button class="btn btn-primary me-md-2" type="submit">Pesquisar</button>
+                        <a href="/uniformes/" class="btn btn-edit">Limpar Filtro</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="collaborators-list">
+        {% for funcionario in funcionarios %}
+            <div class="collaborator-item">
+                <div class="collaborator-info">
+                    <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
+                    <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                    {% if funcionario.uniforme %}
+                        <div class="collaborator-field"><strong>Calça:</strong> {{ funcionario.uniforme.calca }}</div>
+                        <div class="collaborator-field"><strong>Blusa:</strong> {{ funcionario.uniforme.blusa }}</div>
+                        <div class="collaborator-field"><strong>Blusa de Frio:</strong> {{ funcionario.uniforme.blusa_frio }}</div>
+                        <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.uniforme.sapato }}</div>
+                        <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniforme.galocha }}</div>
+                    {% else %}
+                        <div class="collaborator-field"><em>Uniforme não cadastrado.</em></div>
+                    {% endif %}
+                </div>
+                <div class="collaborator-actions">
+                    {% if funcionario.uniforme %}
+                        <a href="/editar/uniforme/{{ funcionario.pk }}" class="btn btn-edit">Editar</a>
+                    {% else %}
+                        <a href="/adicionar/uniforme/{{ funcionario.pk }}" class="card-btn">Adicionar</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div class="collaborator-item">
+                <em>Nenhum funcionário cadastrado.</em>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if funcionarios.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ funcionarios.previous_page_number }}">Anterior</a>
+            {% endif %}
+            <span class="current">Página {{ funcionarios.number }} de {{ funcionarios.paginator.num_pages }}</span>
+            {% if funcionarios.has_next %}
+                <a href="?page={{ funcionarios.next_page_number }}">Próximo</a>
+                <a href="?page={{ funcionarios.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- Contagem de uniformes da encarregada -->
+    <div class="uniform-count">
+        <h3>Contagem de Uniformes</h3>
+        <p><strong>Encarregada:</strong> {{ request.user.get_full_name|default:request.user.username }}</p>
+        <p><strong>Setores:</strong>
+            {% for s in setor %}{{ s.nome }}{% if not forloop.last %} / {% endif %}{% endfor %}
+        </p>
+
+        <div class="tables-container">
+            <div class="uniform-category">
+                <h4>Blusa</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa %}
+                        <tr><td>{{ item.blusa }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Blusa de Frio</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa_frio %}
+                        <tr><td>{{ item.blusa_frio }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Calça</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in calca %}
+                        <tr><td>{{ item.calca }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Sapato</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in sapato %}
+                        <tr><td>{{ item.sapato }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Galocha</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in galocha %}
+                        <tr><td>{{ item.galocha }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}

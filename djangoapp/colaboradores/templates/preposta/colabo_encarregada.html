@@ -1,98 +1,73 @@
 <!--renderiza colaboradores para cada encarregada-->
+{% extends 'base_colaboradores.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <title>Colaborador RCA</title>
-    
-</head>
-<body>
-    <div class="container">
-        <!-- Barra lateral de navegação -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>COLABORADORES</h2>
-                <p>RCS</p>
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="#"  ><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'encarregadas' %}" class="active"><i>👩‍💼</i> ENCARREGADAS</a></li>
-                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES</a></li>
-                <li><a href="{% url 'uniformes' %}"><i>👕</i> UNIFORMES</a></li>
-                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS</a></li>
-                
-            </ul>
-            
-            <div class="sidebar-credits">
-                DESENVOLVIDO POR DIEGO
-            </div>
-        </aside>
-        
-        <!-- Conteúdo principal -->
-        <main class="main-content">
-            <div class="content-wrapper">
-                <header class="header">
-                    <h2>Lista de Colaboradores</h2>
-                    
-                    <div class="user-info">
-                        <span>Usuário: Admin</span>
-                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
-                    </div>
-                </header>
-                
-                <div class="search-bar">
-                    <input type="text" placeholder="Pesquisar colaborador...">
-                    <button>Pesquisar</button>
-                </div>
-                 <div class="collaborator-field"><strong>Encarregada:Monica</strong> </div>
-                <div class="collaborators-list">            
-                    <!-- Exemplo de item de colaborador -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>
-                            <div class="collaborator-field"><strong>Férias:</strong> Janeiro</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Outro exemplo de item -->
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 15245</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> Pedro Henrique</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> GG</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 42</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> STI</div>
-                            <div class="collaborator-field"><strong>Férias:</strong> Janeiro</div>
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <footer class="footer">
-                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
-            </footer>
-        </main>
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css' %}">
+{% endblock %}
+
+{% block title %}Colaboradores{% endblock %}
+{% block page_title %}Encarregado(a) — {{ encarregada.get_full_name|default:encarregada.username }}{% endblock %}
+
+{% block content %}
+<div class="card">
+        <h3>Inserir Funcionário</h3>
+        <p>Cadastre um novo funcionário.</p>
+        <a href="/entrada/funcionario/" class="card-btn">Acessar Formulário</a>
     </div>
-</body>
-</html>
+<div class="search-bar card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-3">{{ filter.form|crispy }}</div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2 d-md-flex">
+                    <button class="btn btn-primary me-md-2" type="submit">Pesquisar</button>
+                    <a href="{% if request.user.is_preposta %}/colaboradores/{% else %}/encarregada/colaboradores/{% endif %}" class="btn btn-edit">Limpar Filtro</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% for funcionario in funcionarios %}
+    <div class="collaborators-list">
+        <div class="collaborator-item">
+            <div class="collaborator-info">
+                <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
+                <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                <div class="collaborator-field"><strong>Banheirista:</strong> {{ funcionario.get_status_display }}</div>
+                <div class="collaborator-field"><strong>Férias:</strong> {{ funcionario.ferias|default:"—" }}</div>
+                <div class="collaborator-field"><strong>Setor:</strong>
+                    {% if funcionario.setores.all %}
+                        {% for s in funcionario.setores.all %}{{ s.nome }}{% if not forloop.last %} / {% endif %}{% endfor %}
+                    {% else %}
+                        <em>Sem setor cadastrado</em>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="collaborator-actions">
+                <a href="/editar/funcionario/preposta/{{ funcionario.pk }}" class="btn btn-edit">Editar</a>
+                <a href="/excluir/funcionario/{{ funcionario.pk }}" class="btn btn-delete">Excluir</a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="setor-item">Nenhum funcionário cadastrado</div>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if funcionarios.has_previous %}
+            <a href="?page=1">&laquo; Primeira</a>
+            <a href="?page={{ funcionarios.previous_page_number }}">Anterior</a>
+        {% endif %}
+        <span class="current">Página {{ funcionarios.number }} de {{ funcionarios.paginator.num_pages }}</span>
+        {% if funcionarios.has_next %}
+            <a href="?page={{ funcionarios.next_page_number }}">Próximo</a>
+            <a href="?page={{ funcionarios.paginator.num_pages }}">Última &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
