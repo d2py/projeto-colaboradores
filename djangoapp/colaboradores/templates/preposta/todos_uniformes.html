@@ -1,82 +1,102 @@
+{% extends 'base_colaboradores.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <title>Colaborador RCS</title>
-</head>
-<body>
-    <div class="container">
-        <!-- Barra lateral de navegação -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>COLABORADORES</h2>
-                <p>RCA</p>
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
-                <li><a href="{% url 'setores' %}"><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a></li>
-                <li><a href="{% url 'uniformes' %}" class="active"><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a></li>
-                <ul class="submenu">
-                        <li><a href="{% url 'todos_uniformes' %}" class="todos-setores"><i>👕</i> TODOS OS UNIFORMES</a></li>
-                    </ul>
-                <li><a href="{% url 'ferias' %}"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
 
-            </ul>
-            
-            <div class="sidebar-credits">
-                DESENVOLVIDO POR DIEGO
-            </div>
-        </aside>
-        
-        <!-- Conteúdo principal -->
-        <main class="main-content">
-            <div class="content-wrapper">
-                <header class="header">
-                    <h2>Todos os Uniformes</h2>
-                    <div class="user-info">
-                        <span>Usuário: Admin</span>
-                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
-                    </div>
-                </header>
+{% block title %}Uniformes — {{ encarregada.get_full_name|default:encarregada.username }}{% endblock %}
+{% block page_title %}Uniformes — {{ encarregada.get_full_name|default:encarregada.username }}{% endblock %}
 
-                <div class="collaborator-field"><strong>Encarregada:</strong> Monica Martins</div>
-                <div class="collaborator-actions">
-                            <button class="btn btn-edit">imprimir</button>
-                            
-                        </div>
+{% block content %}
 
-                <div class="collaborators-list"> 
-                    <div class="collaborator-item">
-                        <div class="collaborator-info">
-                            <div class="collaborator-field"><strong>Matrícula:</strong> 12345</div>
-                            <div class="collaborator-field"><strong>Nome:</strong> João Silva</div>
-                            <div class="collaborator-field"><strong>Calça:</strong> G</div>
-                            <div class="collaborator-field"><strong>Blusa:</strong> G</div>
-                            <div class="collaborator-field"><strong>Sapato:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Galocha:</strong> 39</div>
-                            <div class="collaborator-field"><strong>Setor:</strong> DIMEQ</div>    
-                        </div>
-                        <div class="collaborator-actions">
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Excluir</button>
-                        </div>                  
-                    </div>  
-                      
-                </div>
-                
-                
+<div class="collaborator-actions" style="margin-bottom: 1rem;">
+    <button class="btn btn-edit" onclick="window.print()">Imprimir </button>
+    <a href="/uniformes/" class="btn btn-edit">Voltar</a>
+</div>
+
+<div class="collaborators-list">
+    {% for funcionario in funcionarios %}
+        <div class="collaborator-item">
+            <div class="collaborator-info">
+                <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
+                <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                {% if funcionario.uniforme %}
+                    <div class="collaborator-field"><strong>Calça:</strong> {{ funcionario.uniforme.calca }}</div>
+                    <div class="collaborator-field"><strong>Blusa:</strong> {{ funcionario.uniforme.blusa }}</div>
+                    <div class="collaborator-field"><strong>Blusa de Frio:</strong> {{ funcionario.uniforme.blusa_frio }}</div>
+                    <div class="collaborator-field"><strong>Sapato:</strong> {{ funcionario.uniforme.sapato }}</div>
+                    <div class="collaborator-field"><strong>Galocha:</strong> {{ funcionario.uniforme.galocha }}</div>
+                {% else %}
+                    <div class="collaborator-field"><em>Uniforme não cadastrado.</em></div>
+                {% endif %}
+
             </div>
-            
-            <footer class="footer">
-                <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
-            </footer>
-        </main>
+            <div class="collaborator-actions">
+                {% if funcionario.uniforme %}
+                    <a href="/editar/uniforme/{{ funcionario.pk }}" class="btn btn-edit">Editar</a>
+                {% else %}
+                    <a href="/adicionar/uniforme/{{ funcionario.pk }}" class="card-btn">Adicionar</a>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="collaborator-item"><em>Nenhum funcionário cadastrado.</em></div>
+    {% endfor %}
+</div>
+
+<!-- Contagem de uniformes da encarregada -->
+    <div class="uniform-count">
+        <h3>Contagem de Uniformes</h3>
+        <p><strong>Encarregada:</strong> {{ encarregada.get_full_name|default:encarregada.username }}</p>
+        <p><strong>Setores:</strong>
+            {% for s in setor %}{{ s.nome }}{% if not forloop.last %} / {% endif %}{% endfor %}
+        </p>
+
+        <div class="tables-container">
+            <div class="uniform-category">
+                <h4>Blusa</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa %}
+                        <tr><td>{{ item.blusa }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Blusa de Frio</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa_frio %}
+                        <tr><td>{{ item.blusa_frio }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Calça</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in calca %}
+                        <tr><td>{{ item.calca }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Sapato</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in sapato %}
+                        <tr><td>{{ item.sapato }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Galocha</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in galocha %}
+                        <tr><td>{{ item.galocha }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+
+{% endblock %}

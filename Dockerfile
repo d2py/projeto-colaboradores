@@ -1,5 +1,5 @@
 FROM python:3.12-alpine3.21
-LABEL mantainer="ddias.py@gmail.com"
+LABEL maintainer="ddias.py@gmail.com"
 
 
 # Essa variável de ambiente é usada para controlar se o Python deve 
@@ -21,7 +21,7 @@ WORKDIR /djangoapp
 # A porta 8000 estará disponível para conexões externas ao container
 # É a porta que vamos usar para o Django.
 EXPOSE 8000
-
+RUN apk add --no-cache gcc musl-dev libffi-dev
 # RUN executa comandos em um shell dentro do container para construir a imagem. 
 # O resultado da execução do comando é armazenado no sistema de arquivos da 
 # imagem como uma nova camada.

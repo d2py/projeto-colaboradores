@@ -1,0 +1,136 @@
+{% extends 'base_colaboradores.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css' %}">
+{% endblock %}
+
+{% block title %}Colaboradores{% endblock %}
+{% block page_title %}Setores{% endblock %}
+
+{% block content %}
+{% if request.user.is_preposta%}
+    <div class="supervisors-container">
+        {% for encarregada in encarregadas %}
+            <div class="card-container">
+                <div class="card">
+                    <a href="/setor/por/encarregada/{{ encarregada.pk }}/" class="supervisor-btn">
+                        <h2 class="supervisor-name">Encarregado(a): {{ encarregada.get_full_name|default:encarregada.username }}</h2>
+                        <h4 class="supervisor-count">Total de Setores: {{ encarregada.total }} </h4>
+                    </a>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="card-container">
+    <div class="card">
+        <h3>Inserir Setor</h3>
+        <p>Adicione um novo Setor.</p>
+        <a href="{% url 'registrar_setor'%}" class="card-btn">Acessar Formulário</a>
+    </div>    
+</div> 
+
+
+<div class="content">                    
+    
+            
+    <!-- ÁREA MODIFICADA - Lista de Setores em 6 colunas -->
+    <div class="setores-container">
+        <h3 class="setores-title">Setores Cadastrados</h3>
+        <div class="setores-grid">
+            <!-- Setores renderizados diretamente em 6 colunas -->
+            {% for setor in setores %}
+                <div class="setor-item"> <a href='{% url "editar_setor" setor.pk %}'> {{setor.nome }}</a></div>
+            {% empty %}
+                <div class="setor-item">Nenhum setor cadastrado</div>
+            {% endfor %}
+        </div>
+    </div>
+            
+</div>
+<div class="search-bar card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                {{ filter.form|crispy}}
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2 d-md-flex">
+                    <button class="btn btn-primary me-md-2" type="submit">
+                        <i class="fas fa-search me-1"></i>Pesquisar
+                    </button>
+                    <a href="{% url 'enc_setores' %}" class="btn btn-edit">
+                        <i class="fas fa-times me-1"></i>Limpar Filtro
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+        
+
+
+
+{% for funcionario in funcionarios %}
+
+    
+
+    <div class="collaborator-item">
+        <div class="collaborator-info">
+            <div class="collaborator-field"><strong>Matrícula:</strong>{{funcionario.matricula_funcionario}} </div>
+            <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
+            {% if request.user.is_preposta %}
+                    <div class="collaborator-field"><strong>Encarregada:</strong> {{ funcionario.encarregada|default:"Não atribuída" }}</div>
+                {% endif %}    
+            <div class="collaborator-field"><strong>Setores:</strong>
+                {% if funcionario.setores.all %}         
+                        {% for setores in funcionario.setores.all%}
+                            {{setores.nome}}{% if not forloop.last%} /{%endif%}
+                        {%endfor%}
+                {% else%}
+                    <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
+                {% endif%}        
+            </div>
+                
+        </div>
+        <div class="collaborator-actions">
+            {% if funcionario.setores.all %}
+                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Editar</a>
+            {% elif not funcionario.setores.all %}
+                <a href="{% url 'setor_colaborador' funcionario.pk %}" class="btn btn-edit">Adicionar funcionario ao Setor</a>
+            {% else%}
+                <a href="{% url 'registrar_setor' %}" class="btn btn-edit">Inserir Setor</a>
+            {% endif%}
+        </div>
+    </div>
+
+    {% empty %}
+    <div class="setor-item">Nenhum funcionario cadastrado</div>
+    
+{% endfor%}
+
+
+    <!-- Paginação dos conteudos  -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if funcionarios.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ funcionarios.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Paginas {{ funcionarios.number }} de {{ funcionarios.paginator.num_pages }}.
+            </span>
+
+            {% if funcionarios.has_next %}
+                <a href="?page={{ funcionarios.next_page_number }}">Próximo</a>
+                <a href="?page={{ funcionarios.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+
+{% endblock%}

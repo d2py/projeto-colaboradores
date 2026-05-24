@@ -1,150 +1,75 @@
+{% extends 'base_colaboradores.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css'%}">
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css' %}">
+{% endblock %}
 
-    <title>Colaborador RCS</title>
-    
-</head>
-<body>
+{% block title %}Colaboradores{% endblock %}
+{% block page_title %}Lista de Colaboradores{% endblock %}
 
-<div class="container">
-<!-- Barra lateral de navegação -->
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <h2>COLABORADORES</h2>
-        <p>RCS</p>
-    </div>
-
-    <ul class="sidebar-menu">
-        <li><a href="{% url 'enc_home'%}"><i>🏠</i> HOME</a></li>
-        <li><a href="" class="active" ><i>👥</i> COLABORADORES</a></li>
-        <li><a href="{% url 'enc_setores' %}"><i>🏢</i> SETORES </a></li>
-        <li><a href="{% url 'enc_uniformes' %}"><i>👕</i> UNIFORMES </a></li>
-        <li><a href="{% url 'enc_ferias'%}"><i>🏖️</i> FÉRIAS </a></li>  
-    </ul>
-
-    <div class="sidebar-credits">
-        DESENVOLVIDO POR DIEGO
-    </div>
-</aside>
-
-<!-- Conteúdo principal -->
-
-<main class="main-content">
-<div class="content-wrapper">
-    <header class="header">
-        <h2>Lista de Colaboradores</h2>
-        <div class="user-info">
-            <span>Usuário: Admin</span>
-            <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
-        </div>
-    </header>
-    <div class="content">
-        <h2>Gerenciamento</h2>
-        
-        <div class="card-container">                        
-            <div class="card">
-                <h3>Inserir Funcionario</h3>
-                <p>Cadastre um novo funcionario </p>
-                <a href="{% url 'entrada_funcionario' %}" class="card-btn">Acessar Formulário</a>
-            </div>
-            <div class="card">
-                <h3>Imprimir Lista </h3>
-                <p>Imprimir lista dos funcionarios</p>
-                <a href="formulario-colaborador.html" class="card-btn">Acessar Formulário</a>
-            </div>  
-        </div>
+{% block content %}
+<div class="card">
+        <h3>Inserir Funcionário</h3>
+        <p>Cadastre um novo funcionário.</p>
+        <a href="/entrada/funcionario/" class="card-btn">Acessar Formulário</a>
     </div>
 <div class="search-bar card shadow-sm mb-4">
-<div class="card-body">
-<form method="GET" class="row g-3 align-items-end">
-    <div class="col-md-3">
-        {{ filter.form|crispy}}
-    </div>
-    <div class="col-md-3">
-        <div class="d-grid gap-2 d-md-flex">
-            <button class="btn btn-primary me-md-2" type="submit">
-                <i class="fas fa-search me-1"></i>Pesquisar
-            </button>
-            <a href="{% url 'enc_colaboradores' %}" class="btn btn-edit">
-                <i class="fas fa-times me-1"></i>Limpar Filtro
-            </a>
-        </div>
-    </div>
-</form>
-</div>
-</div>
-    
-    
-
-    {% for funcionario in funcionarios %}
-    
-        <div class="collaborators-list">
-            <!-- Exemplo de item de colaborador -->
-            
-            <div class="collaborator-item">
-                <div class="collaborator-info">
-                    <div class="collaborator-field"><strong>Matrícula:</strong> {{funcionario.matricula_funcionario}}</div>
-                    <div class="collaborator-field"><strong>Nome:</strong> {{funcionario.nome_funcionario}}</div>
-                    <div class="collaborator-field"><strong>Banheirista:</strong> {{funcionario.status}}</div>
-                    <div class="collaborator-field"><strong>Ferias:</strong> {{funcionario.ferias}}</div>
-                    <div class="collaborator-field"><strong>Setor:</strong> 
-                    {%if funcionario.setores.all %}         
-                        {% for setores in funcionario.setores.all%}
-                            {{setores.nome}}{%if not forloop.last%} /{%endif%}
-                        {%endfor%}
-                {%else%}
-                    <div class="collaborator-field"><em>Não a setor cadastrado.</em></div> 
-                {%endif%}  
-                    
-                    
-                    </div>
-                </div>
-                <div class="collaborator-actions">
-                    
-                    <a href="{% url 'editar_funcionario' funcionario.pk %}" class="btn btn-edit">Editar</a>
-                    <a href="{% url 'excluir_funcionario' funcionario.pk %}" class="btn btn-delete" >Excluir</a>
+    <div class="card-body">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-3">{{ filter.form|crispy }}</div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2 d-md-flex">
+                    <button class="btn btn-primary me-md-2" type="submit">Pesquisar</button>
+                    <a href="{% if request.user.is_preposta %}/colaboradores/{% else %}/encarregada/colaboradores/{% endif %}" class="btn btn-edit">Limpar Filtro</a>
                 </div>
             </div>
-        </div>
-    {% empty %}
-        <div class="setor-item">Nenhum funcionario cadastrado</div>
-            
-    {% endfor%}
+        </form>
+    </div>
+</div>
 
- 
-<!-- Paginação dos conteudos  -->
+{% for funcionario in funcionarios %}
+    <div class="collaborators-list">
+        <div class="collaborator-item">
+            <div class="collaborator-info">
+                <div class="collaborator-field"><strong>Matrícula:</strong> {{ funcionario.matricula_funcionario }}</div>
+                <div class="collaborator-field"><strong>Nome:</strong> {{ funcionario.nome_funcionario }}</div>
+                <div class="collaborator-field"><strong>Banheirista:</strong> {{ funcionario.get_status_display }}</div>
+                <div class="collaborator-field"><strong>Férias:</strong> {{ funcionario.ferias|default:"—" }}</div>
+                {% if request.user.is_preposta %}
+                    <div class="collaborator-field"><strong>Encarregada:</strong> {{ funcionario.encarregada|default:"Não atribuída" }}</div>
+                {% endif %}
+                <div class="collaborator-field"><strong>Setor:</strong>
+                    {% if funcionario.setores.all %}
+                        {% for s in funcionario.setores.all %}{{ s.nome }}{% if not forloop.last %} / {% endif %}{% endfor %}
+                    {% else %}
+                        <em>Sem setor cadastrado</em>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="collaborator-actions">
+                <a href="/editar/funcionario/preposta/{{ funcionario.pk }}" class="btn btn-edit">Editar</a>
+                <a href="/excluir/funcionario/{{ funcionario.pk }}" class="btn btn-delete">Excluir</a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="setor-item">Nenhum funcionário cadastrado</div>
+{% endfor %}
+
 <div class="pagination">
     <span class="step-links">
         {% if funcionarios.has_previous %}
             <a href="?page=1">&laquo; Primeira</a>
             <a href="?page={{ funcionarios.previous_page_number }}">Anterior</a>
         {% endif %}
-
-        <span class="current">
-            Pagina {{ funcionarios.number }} of {{ funcionarios.paginator.num_pages }}.
-        </span>
-
+        <span class="current">Página {{ funcionarios.number }} de {{ funcionarios.paginator.num_pages }}</span>
         {% if funcionarios.has_next %}
             <a href="?page={{ funcionarios.next_page_number }}">Próximo</a>
-            <a href="?page={{ funcionarios.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+            <a href="?page={{ funcionarios.paginator.num_pages }}">Última &raquo;</a>
         {% endif %}
     </span>
 </div>
-</div>
 
-
-
-<footer class="footer">
-    <p>© 2023 COLABORADORES RCS - Todos os direitos reservados</p>
-</footer>
-</main>
-</div>
-</body>
-</html>
+{% endblock %}

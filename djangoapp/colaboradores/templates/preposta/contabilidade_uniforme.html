@@ -1,0 +1,62 @@
+{% extends 'base_colaboradores.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contagem dos Uniformes{% endblock %}
+{% block page_title %}Contabilidade dos Uniformes{% endblock %}
+
+{% block content %}
+
+     <!-- Contagem de uniformes da encarregada -->
+    <div class="uniform-count">
+        <h3>Contagem de Uniformes</h3>
+        <div class="tables-container">
+            <div class="uniform-category">
+                <h4>Blusa</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa %}
+                        <tr><td>{{ item.blusa }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Blusa de Frio</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in blusa_frio %}
+                        <tr><td>{{ item.blusa_frio }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Calça</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in calca %}
+                        <tr><td>{{ item.calca }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Sapato</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in sapato %}
+                        <tr><td>{{ item.sapato }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="uniform-category">
+                <h4>Galocha</h4>
+                <table class="uniform-table">
+                    <tr><th>Tamanho</th><th>Quantidade</th></tr>
+                    {% for item in galocha %}
+                        <tr><td>{{ item.galocha }}</td><td>{{ item.total }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

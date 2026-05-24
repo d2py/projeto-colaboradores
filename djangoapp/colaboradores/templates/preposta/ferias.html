@@ -1,71 +1,53 @@
+{% extends 'base_colaboradores.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'colaboradores/css/style.css'%}">
-    <title>Férias RCA</title>
-</head>
-<body>
-    <div class="container">
-        <!-- Barra lateral de navegação -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>COLABORADORES</h2>
-                <p>RCA</p>
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="{% url 'home'%}"><i>🏠</i> HOME</a></li>
-                <li><a href="{% url 'colaboradores' %}"><i>👥</i> COLABORADORES</a></li>
-                <li><a href="{% url 'encarregadas' %}"><i>👩‍💼</i> ENCARREGADAS</a></li>
-                <li class="has-submenu">
-                    <a href="{% url 'setores' %}" ><i>🏢</i> SETORES <span class="submenu-toggle">›</span></a>
-                </li>
-                <li><a href="{% url 'uniformes' %}" ><i>👕</i> UNIFORMES <span class="submenu-toggle">›</span></a></li>
-                <li class="has-submenu">
-                    <li><a href="" class="active"><i>🏖️</i> FÉRIAS <span class="submenu-toggle">›</span></a></li>
-                    <li class="has-submenu">
-                        <a href="todas_ferias" ><i>🏖️</i> TODAS AS FERIAS</a>
-                    </li>
-                </li>    
-            </ul>
-            
-            <div class="sidebar-credits">
-                DESENVOLVIDO POR DIEGO
-            </div>
-        </aside>
-        
-        <!-- Conteúdo principal -->
-        <main class="main-content">
-            <div class="content-wrapper">
-                <header class="header">
-                    <h2>Ferias</h2>
-                    <div class="user-info">
-                        <span>Usuário: Admin</span>
-                        <button class="logout-btn" onclick="window.location.href='login.html'">SAIR</button>
-                    </div>
-                </header>
-                
-                <!-- Container para os botões das encarregadas -->
-                <div class="supervisors-container">
-                    {% for ferias in ferias %}
-                    <a href="{{ ferias.link }}" class="supervisor-btn">
-                        <span class="supervisor-icon">👩‍💼</span>
-                        <span class="supervisor-name">{{ ferias.nome }}</span>
-                        {% if seores.count %}
-                        <span class="supervisor-count">{{ ferias.count }} ferias</span>
-                        {% endif %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'colaboradores/css/setores.css' %}">
+    <link rel="stylesheet" href="{% static 'colaboradores/css/mes_ferias.css' %}">
+{% endblock %}
+
+{% block title %}Colaboradores{% endblock %}
+{% block page_title %}Ferias {% endblock %}
+
+{% block content %}
+{% if request.user.is_preposta%}
+    <div class="supervisors-container">
+        {% for encarregada in encarregadas %}
+            <div class="card-container">
+                <div class="card">
+                    <a href="/ferias/todas/{{ encarregada.pk }}/" class="supervisor-btn">
+                        <h2 class="supervisor-name">Encarregado(a): {{ encarregada.get_full_name|default:encarregada.username }}</h2>
+                        <h4 class="supervisor-count">Total de Funcionarios: {{ encarregada.total }} </h4>
                     </a>
-                    {% endfor %}
+                    </div>
                 </div>
-            </div>
-            
-            <footer class="footer">
-                <p>© {% now "Y" %} COLABORADORES RCS - Todos os direitos reservados</p>
-            </footer>
-        </main>
+        {% endfor %}
     </div>
-</body>
-</html>
+{% endif %}
+
+
+{% if request.user.is_encarregada%}
+    <div class="ferias-grid">
+        {% for mes in calendario %}
+        <div class="mes-card {% if mes.total == 0 %}vazio{% endif %}">
+            <div class="mes-header">
+                <h3>{{ mes.nome }}</h3>
+                <span class="mes-badge">{{ mes.total }}</span>
+            </div>
+            <div class="mes-body">
+                {% if mes.funcionarios %}
+                    {% for f in mes.funcionarios %}
+                        <div class="ferias-item">
+                            <div class="ferias-nome">{{ f.nome_funcionario }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="sem-ferias">Nenhum funcionário</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock%}
